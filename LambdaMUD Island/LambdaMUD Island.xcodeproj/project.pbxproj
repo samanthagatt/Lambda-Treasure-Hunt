@@ -12,6 +12,9 @@
 		226CAFE6220643230095ECB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226CAFE4220643230095ECB6 /* Main.storyboard */; };
 		226CAFE82206432C0095ECB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226CAFE72206432C0095ECB6 /* Assets.xcassets */; };
 		226CAFEB2206432C0095ECB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 226CAFE92206432C0095ECB6 /* LaunchScreen.storyboard */; };
+		226CAFF322064C930095ECB6 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFF222064C930095ECB6 /* APIHelper.swift */; };
+		226CAFFB2206509C0095ECB6 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFA2206509C0095ECB6 /* AuthToken.swift */; };
+		226CAFFD220653700095ECB6 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFC220653700095ECB6 /* UserStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		226CAFE72206432C0095ECB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		226CAFEA2206432C0095ECB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		226CAFEC2206432C0095ECB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		226CAFF222064C930095ECB6 /* APIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		226CAFFA2206509C0095ECB6 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
+		226CAFFC220653700095ECB6 /* UserStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,9 @@
 				226CAFE0220643230095ECB6 /* AppDelegate.swift */,
 				226CAFE2220643230095ECB6 /* ViewController.swift */,
 				226CAFE4220643230095ECB6 /* Main.storyboard */,
+				226CAFF222064C930095ECB6 /* APIHelper.swift */,
+				226CAFFC220653700095ECB6 /* UserStatus.swift */,
+				226CAFFA2206509C0095ECB6 /* AuthToken.swift */,
 				226CAFE72206432C0095ECB6 /* Assets.xcassets */,
 				226CAFE92206432C0095ECB6 /* LaunchScreen.storyboard */,
 				226CAFEC2206432C0095ECB6 /* Info.plist */,
@@ -135,6 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				226CAFF322064C930095ECB6 /* APIHelper.swift in Sources */,
+				226CAFFD220653700095ECB6 /* UserStatus.swift in Sources */,
+				226CAFFB2206509C0095ECB6 /* AuthToken.swift in Sources */,
 				226CAFE3220643230095ECB6 /* ViewController.swift in Sources */,
 				226CAFE1220643230095ECB6 /* AppDelegate.swift in Sources */,
 			);

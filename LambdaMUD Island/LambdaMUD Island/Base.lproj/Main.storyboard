@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,11 +13,48 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LambdaMUD_Island" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIo-Uh-ccD">
+                                <rect key="frame" x="533" y="270" width="30" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ViewController.southButton" label="South Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="v"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-OR-Xat">
+                                <rect key="frame" x="533" y="228" width="30" height="42"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ViewController.northButton" label="North Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Λ"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8x-08-Pf8">
+                                <rect key="frame" x="563" y="252" width="30" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ViewController.eastButton" label="East Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="&gt;"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WA-wM-cHB">
+                                <rect key="frame" x="503" y="252" width="30" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="ViewController.westButton" label="West Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="&lt;"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qIo-Uh-ccD" firstAttribute="top" secondItem="SeT-OR-Xat" secondAttribute="bottom" id="6GE-EP-mue"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="1WA-wM-cHB" secondAttribute="bottom" constant="75" id="BtT-dj-iQW"/>
+                            <constraint firstItem="o8x-08-Pf8" firstAttribute="centerY" secondItem="1WA-wM-cHB" secondAttribute="centerY" id="Bvs-jM-xhW"/>
+                            <constraint firstItem="qIo-Uh-ccD" firstAttribute="leading" secondItem="SeT-OR-Xat" secondAttribute="leading" id="JbX-e3-qnk"/>
+                            <constraint firstItem="qIo-Uh-ccD" firstAttribute="leading" secondItem="1WA-wM-cHB" secondAttribute="trailing" id="URl-pd-CBC"/>
+                            <constraint firstItem="qIo-Uh-ccD" firstAttribute="trailing" secondItem="SeT-OR-Xat" secondAttribute="trailing" id="Xxt-u3-QzO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qIo-Uh-ccD" secondAttribute="bottom" constant="57" id="cuc-pU-ozv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o8x-08-Pf8" secondAttribute="trailing" constant="74" id="fhW-9i-V4G"/>
+                            <constraint firstItem="o8x-08-Pf8" firstAttribute="leading" secondItem="SeT-OR-Xat" secondAttribute="trailing" id="xNY-Rx-Chw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
