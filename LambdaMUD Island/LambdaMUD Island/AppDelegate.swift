@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        APIHelper.shared.travel(.south, nextRoomID: 10) { (error, status) in
+            print(status ?? "No status")
+        }
+        
         return true
     }
 

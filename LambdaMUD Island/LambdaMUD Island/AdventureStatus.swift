@@ -1,5 +1,5 @@
 //
-//  UserStatus.swift
+//  AdventureStatus.swift
 //  LambdaMUD Island
 //
 //  Created by Samantha Gatt on 2/2/19.
@@ -9,13 +9,13 @@
 import Foundation
 
 
-struct UserStatus: Decodable {
+struct AdventureStatus: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
     var roomID: Int
     var title: String
-    var description: String
+    var roomDescription: String
     var coordinates: (x: Int, y: Int)
     var players: [String]
     var items: [String]
@@ -24,13 +24,17 @@ struct UserStatus: Decodable {
     var errors: [String]
     var messages: [String]
     
+    var description: String {
+        return "<Adventure Status: roomID = \(self.roomID), title = \(self.title)>"
+    }
+    
     
     // MARK: - Keys for decoding
     
     enum CodingKeys: String, CodingKey {
         case roomID = "room_id"
         case title
-        case description
+        case roomDescription = "description"
         case coordinates
         case players
         case items
@@ -44,14 +48,12 @@ struct UserStatus: Decodable {
     // MARK: - Decodable protocol
     
     init(from decoder: Decoder) throws {
-        
-        #warning("TODO: Make sure all parameters will be present in every response")
-        
-        let container = try decoder.container(keyedBy: UserStatus.CodingKeys.self)
+                
+        let container = try decoder.container(keyedBy: AdventureStatus.CodingKeys.self)
         
         let roomID = try container.decode(Int.self, forKey: .roomID)
         let title = try container.decode(String.self, forKey: .title)
-        let description = try container.decode(String.self, forKey: .description)
+        let room_description = try container.decode(String.self, forKey: .roomDescription)
         let coordString = try container.decode(String.self, forKey: .coordinates)
         
         let coordArray = coordString.split(separator: ",")
@@ -72,7 +74,7 @@ struct UserStatus: Decodable {
         
         self.roomID = roomID
         self.title = title
-        self.description = description
+        self.roomDescription = room_description
         self.coordinates = coordinates
         self.players = players
         self.items = items
