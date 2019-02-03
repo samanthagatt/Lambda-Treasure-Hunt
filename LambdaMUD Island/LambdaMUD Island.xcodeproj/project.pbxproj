@@ -15,6 +15,7 @@
 		226CAFF322064C930095ECB6 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFF222064C930095ECB6 /* APIHelper.swift */; };
 		226CAFFB2206509C0095ECB6 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFA2206509C0095ECB6 /* AuthToken.swift */; };
 		226CAFFD220653700095ECB6 /* AdventureStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFC220653700095ECB6 /* AdventureStatus.swift */; };
+		226CAFFF220775260095ECB6 /* TreasureMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		226CAFF222064C930095ECB6 /* APIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
 		226CAFFA2206509C0095ECB6 /* AuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		226CAFFC220653700095ECB6 /* AdventureStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStatus.swift; sourceTree = "<group>"; };
+		226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureMapHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				226CAFE2220643230095ECB6 /* ViewController.swift */,
 				226CAFE4220643230095ECB6 /* Main.storyboard */,
 				226CAFF222064C930095ECB6 /* APIHelper.swift */,
+				226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */,
 				226CAFFC220653700095ECB6 /* AdventureStatus.swift */,
 				226CAFFA2206509C0095ECB6 /* AuthToken.swift */,
 				226CAFE72206432C0095ECB6 /* Assets.xcassets */,
@@ -147,6 +150,7 @@
 				226CAFF322064C930095ECB6 /* APIHelper.swift in Sources */,
 				226CAFFD220653700095ECB6 /* AdventureStatus.swift in Sources */,
 				226CAFFB2206509C0095ECB6 /* AuthToken.swift in Sources */,
+				226CAFFF220775260095ECB6 /* TreasureMapHelper.swift in Sources */,
 				226CAFE3220643230095ECB6 /* ViewController.swift in Sources */,
 				226CAFE1220643230095ECB6 /* AppDelegate.swift in Sources */,
 			);
