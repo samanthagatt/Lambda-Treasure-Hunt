@@ -140,8 +140,48 @@ class APIHelper {
         }.resume()
     }
     
+    /// Picks up or drops specified treasure
+    func handleTreasure(_ treasure: String, isDropping: Bool = false, completion: @escaping (_ error: Error?) -> Void = {(_) in }) {
+        
+        // MARK: URL request set up
+        let url: URL
+        if isDropping {
+            url = APIHelper.baseURL.appendingPathComponent("drop/")
+        } else {
+            url = APIHelper.baseURL.appendingPathComponent("take/")
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyDict = ["name": treasure]
+
+        // MARK: Body json encoding
+        do {
+            let bodyData = try JSONEncoder().encode(bodyDict)
+            request.httpBody = bodyData
+        } catch {
+            NSLog("Error encoding body data: \(error)")
+            completion(error)
+            return
+        }
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to sell '\(treasure)': \(error)")
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }.resume()
+    }
     
-    func sell(_ treasure: String, isConfirming: Bool = false, completion: @escaping (Error?, AdventureStatus?) -> Void) {
+    /// Sells a specified treasure
+    func sell(_ treasure: String, isConfirming: Bool = false, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
      
         // MARK: URL request set up
         let url = APIHelper.baseURL.appendingPathComponent("move/")
