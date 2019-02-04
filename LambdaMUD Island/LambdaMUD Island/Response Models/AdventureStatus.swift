@@ -16,10 +16,10 @@ struct AdventureStatus: Decodable {
     var roomID: Int
     var title: String
     var roomDescription: String
-    var coordinates: (x: Int, y: Int)
+    var coordinates: String
     var players: [String]
     var items: [String]
-    var exits: [Direction]
+    var exits: [String]
     var cooldown: Float
     var errors: [String]
     var messages: [String]
@@ -50,20 +50,12 @@ struct AdventureStatus: Decodable {
         let roomID = try container.decode(Int.self, forKey: .roomID)
         let title = try container.decode(String.self, forKey: .title)
         let room_description = try container.decode(String.self, forKey: .roomDescription)
-        let coordString = try container.decode(String.self, forKey: .coordinates)
-        
-        let coordArray = coordString.split(separator: ",")
-        _ = coordArray.first?.dropFirst()
-        _ = coordArray.last?.dropLast()
-        var coordinates = (x: 0, y: 0)
-        if let x = coordArray.first, let y = coordArray.last {
-            coordinates.x = Int(x) ?? 0
-            coordinates.y = Int(y) ?? 0
-        }
-        
+        let coordinates = try container.decode(String.self, forKey: .coordinates)
+        _ = coordinates.dropFirst()
+        _ = coordinates.dropLast()
         let players = try container.decode([String].self, forKey: .players)
         let items = try container.decode([String].self, forKey: .items)
-        let exits = try container.decode([Direction].self, forKey: .exits)
+        let exits = try container.decode([String].self, forKey: .exits)
         let cooldown = try container.decode(Float.self, forKey: .cooldown)
         let errors = try container.decode([String].self, forKey: .errors)
         let messages = try container.decode([String].self, forKey: .messages)

@@ -12,7 +12,7 @@ import Foundation
 // MARK: Direction enum
 
 /// Enum of all four cardinal directions
-enum Direction: String, Decodable {
+enum Direction: String, Codable {
     case north = "n"
     case south = "s"
     case east = "e"
@@ -50,7 +50,7 @@ class APIHelper {
     // MARK: Network requestss
     
     /// Attempts to travel in a specified direction
-    func travel(_ dir: Direction, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
+    func travel(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
         
         // MARK: URL request set up
         let url = APIHelper.baseURL.appendingPathComponent("move/")
@@ -58,7 +58,7 @@ class APIHelper {
         request.httpMethod = "POST"
         request.addValue(authToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        var bodyDict = ["direction": dir.rawValue]
+        var bodyDict = ["direction": dir]
         if let nextRoomID = nextRoomID {
             bodyDict["next_room_id"] = "\(nextRoomID)"
         }
@@ -99,7 +99,10 @@ class APIHelper {
                 return
             }
         }.resume()
-        
+    }
+    
+    func travel(_ dir: Direction, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
+        travel(dir.rawValue, nextRoomID: nextRoomID, completion: completion)
     }
     
     /// Checks user status

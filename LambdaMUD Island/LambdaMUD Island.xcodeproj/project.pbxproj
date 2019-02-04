@@ -66,17 +66,33 @@
 			children = (
 				226CAFE0220643230095ECB6 /* AppDelegate.swift */,
 				226CAFE2220643230095ECB6 /* ViewController.swift */,
-				226CAFE4220643230095ECB6 /* Main.storyboard */,
-				226CAFF222064C930095ECB6 /* APIHelper.swift */,
-				226CB0002207AE5C0095ECB6 /* UserStatus.swift */,
-				226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */,
-				226CAFFC220653700095ECB6 /* AdventureStatus.swift */,
+				226CB0052208B4060095ECB6 /* Helpers */,
+				226CB0022208B3BB0095ECB6 /* Response Models */,
 				226CAFFA2206509C0095ECB6 /* AuthToken.swift */,
-				226CAFE72206432C0095ECB6 /* Assets.xcassets */,
+				226CAFE4220643230095ECB6 /* Main.storyboard */,
 				226CAFE92206432C0095ECB6 /* LaunchScreen.storyboard */,
+				226CAFE72206432C0095ECB6 /* Assets.xcassets */,
 				226CAFEC2206432C0095ECB6 /* Info.plist */,
 			);
 			path = "LambdaMUD Island";
+			sourceTree = "<group>";
+		};
+		226CB0022208B3BB0095ECB6 /* Response Models */ = {
+			isa = PBXGroup;
+			children = (
+				226CB0002207AE5C0095ECB6 /* UserStatus.swift */,
+				226CAFFC220653700095ECB6 /* AdventureStatus.swift */,
+			);
+			path = "Response Models";
+			sourceTree = "<group>";
+		};
+		226CB0052208B4060095ECB6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				226CAFF222064C930095ECB6 /* APIHelper.swift */,
+				226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -21,21 +21,4 @@ struct UserStatus: Decodable {
     let status: [String]
     let errors: [String]
     let messages: [String]
-
-//    var debugDescription: String {
-//        return """
-//        UserStatus = {
-//            name: '\(name)',
-//            cooldown: \(cooldown),
-//            encumbrance: \(encumbrance),
-//            strength: \(strength),
-//            speed: \(speed),
-//            gold: \(gold),
-//            inventory: \(inventory),
-//            status: \(status),
-//            errors: \(errors),
-//            messages: \(messages)
-//        }
-//        """
-//    }
 }
