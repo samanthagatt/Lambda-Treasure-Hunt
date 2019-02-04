@@ -38,6 +38,10 @@ class TreasureMapHelper {
     }
 
     func travel(completion: @escaping (TimeInterval?) -> Void) {
+        
+        // Debugging
+        print("TreasureMapHelper.shared.travel() called")
+        
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
         let currentRoomID = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
         
@@ -53,6 +57,10 @@ class TreasureMapHelper {
         if unexplored.count > 0 {
             APIHelper.shared.travel(unexplored[0]) { (_, status) in
                 guard let status = status else {
+                    
+                    // Debugging
+                    print("An error occurred trying to explore")
+                    
                     completion(nil)
                     return
                 }
@@ -60,6 +68,13 @@ class TreasureMapHelper {
                 self.path.append(unexplored[0])
                 self.stack.append(unexplored[0])
                 self.backlog.append(currentRoomID)
+                if self.path.count % 10 == 0 {
+                    print(self.path)
+                }
+                
+                // Debugging
+                print("Traveled to an unexplored room: \(status.roomID)")
+                
                 completion(20.0)
             }
         } else {
@@ -70,10 +85,21 @@ class TreasureMapHelper {
                 guard let status = status, status.roomID != currentRoomID else {
                     self.stack.append(dir)
                     self.backlog.append(futureID)
+                    
+                    // Debugging
+                    print("An error occured trying to backtrack")
+                    
                     completion(nil)
                     return
                 }
                 self.path.append(oppositeDir)
+                
+                // Debugging
+                if self.path.count % 10 == 0 {
+                    print(self.path)
+                }
+                print("Traveled backwards to room: \(status.roomID)")
+                
                 completion(10.0)
             }
         }
