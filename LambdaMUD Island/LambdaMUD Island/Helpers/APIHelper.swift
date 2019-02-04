@@ -8,37 +8,9 @@
 
 import Foundation
 
-
-// MARK: Direction enum
-
-/// Enum of all four cardinal directions
-enum Direction: String, Codable {
-    case north = "n"
-    case south = "s"
-    case east = "e"
-    case west = "w"
-    
-    /// Returns opposite direction
-    static func opposite(_ dir: Direction) -> Direction {
-        switch dir {
-        case .north:
-            return .south
-        case .south:
-            return .north
-        case .east:
-            return .west
-        case .west:
-            return .east
-        }
-    }
-}
-
-
-// MARK: - APIHelper
-
 class APIHelper {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     /// Shared instance of APIHelper
     static let shared = APIHelper()
@@ -47,7 +19,7 @@ class APIHelper {
     private static let baseURL = URL(string: "https://lambda-treasure-hunt.herokuapp.com/api/adv/")!
     
     
-    // MARK: Network requestss
+    // MARK: - Network requestss
     
     /// Attempts to travel in a specified direction
     func travel(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
@@ -99,10 +71,6 @@ class APIHelper {
                 return
             }
         }.resume()
-    }
-    
-    func travel(_ dir: Direction, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
-        travel(dir.rawValue, nextRoomID: nextRoomID, completion: completion)
     }
     
     /// Checks user status

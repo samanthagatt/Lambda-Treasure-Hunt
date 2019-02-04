@@ -19,30 +19,26 @@ class TreasureMapHelper {
     private static let mapKey = "treasureMap"
     /// Key for the user's current room id in UserDefaults
     private static let currentRoomIDKey = "currentRoomID"
+    
+    /// Dict of opposite cardinal directions
+    private static let oppositeDir = ["n": "s", "s": "n", "e": "w", "w": "e"]
+    
+    /// Stack for reverse traversal
+    private var stack: [String] = []
+    /// Traversal path
+    private var path: [String] = []
+    /// Sequence of roomIDs
+    private var backlog: [Int] = []
 
     
     // MARK: - Methods
-    
-    func updateAfterTravel(roomID: Int, lastRoomID: Int, directionTraveled: String) {
-        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
-        
-        guard let _ = map[roomID] else { return }
-        
-        // hopefully this never fails because it'll default to .north
-        let dir = Direction(rawValue: directionTraveled) ?? .north
-        let oppositeDir = Direction.opposite(dir).rawValue
-        // map[roomID] should never be nil at this point
-        map[roomID]?[oppositeDir] = lastRoomID
-        // map[lastRoomID] shouldn't be nil since it's already been traveled to
-        map[lastRoomID]?[directionTraveled] = roomID
-    }
 
     func traverseAllRooms() {
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
         let currentRoomID = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
         
-        let beginningRoom = map[currentRoomID] ?? map[0]!
-        let adjacentRooms = beginningRoom["exits"] as? [String: Any] ?? [:]
+        let currentRoom = map[currentRoomID] ?? map[0]!
+        let adjacentRooms = currentRoom["exits"] as? [String: Any] ?? [:]
         var unexplored: [String] = []
         for (dir, id) in adjacentRooms {
             if id as? String == "?" {
@@ -53,27 +49,55 @@ class TreasureMapHelper {
         if unexplored.count > 0 {
             APIHelper.shared.travel(unexplored[0]) { (_, status) in
                 guard let status = status else { return }
-                self.updateNewRoom(status)
-                self.updateAfterTravel(roomID: status.roomID, lastRoomID: beginningRoom["roomID"] as! Int, directionTraveled: unexplored[0])
+                self.updateMap(from: currentRoomID, dir: unexplored[0], status: status)
+                self.path.append(unexplored[0])
+                self.stack.append(unexplored[0])
+                self.backlog.append(currentRoomID)
             }
         } else {
-            // pop from a stack i haven't made yet
+            let dir = stack.popLast() ?? "n"
+            let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "s"
+            let futureID = backlog.popLast() ?? 0
+            APIHelper.shared.travel(oppositeDir, nextRoomID: futureID) { (_, status) in
+                guard let status = status, status.roomID != currentRoomID else {
+                    self.stack.append(dir)
+                    self.backlog.append(futureID)
+                    return
+                }
+                self.path.append(oppositeDir)
+            }
         }
     }
     
-    private func updateNewRoom(_ status: AdventureStatus) {
+    private func updateMap(from startID: Int, dir: String, status: AdventureStatus) {
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
-        var exitsDict: [String: Any] = [:]
-        for dir in status.exits {
-            exitsDict[dir] = "?"
+        var roomDict: [String: Any]
+        if let existingDict = map[status.roomID] {
+            roomDict = existingDict
+        } else {
+            var exitsDict: [String: Any] = [:]
+            for dir in status.exits {
+                exitsDict[dir] = "?"
+            }
+            roomDict = [
+                "roomID": status.roomID,
+                "title": status.title,
+                "roomDescription": status.roomDescription,
+                "coordinates": status.coordinates,
+                "exits": exitsDict
+            ]
         }
-        let roomDict: [String : Any] = [
-            "roomID": status.roomID,
-            "title": status.title,
-            "roomDescription": status.roomDescription,
-            "coordinates": status.coordinates,
-            "exits": exitsDict
-        ]
+        
+        let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "n"
+        // Should never be nil
+        var exits = roomDict["exits"] as? [String: Int] ?? [:]
+        exits[oppositeDir] = startID
+        roomDict["exits"] = exits
+        
+        exits = map[startID]?["exits"] as? [String: Int] ?? [:]
+        exits[dir] = status.roomID
+        map[startID]?["exits"] = exits
+        
         map[status.roomID] = roomDict
         UserDefaults.standard.set(map, forKey: TreasureMapHelper.mapKey)
     }
@@ -82,7 +106,7 @@ class TreasureMapHelper {
 
 extension TreasureMapHelper {
     /// Starting map based off of personal exploration
-    static let startingMapGraph: [Int: [String: Any]] = [
+    private static let startingMapGraph: [Int: [String: Any]] = [
         0: [
             "roomID": 0,
             "title": "Darkness",
