@@ -35,6 +35,7 @@ enum Direction: String, Decodable {
 
 
 // MARK: - APIHelper
+
 class APIHelper {
     
     // MARK: Properties
@@ -93,7 +94,7 @@ class APIHelper {
                 completion(nil, adventureStatus)
                 return
             } catch {
-                NSLog("An error occurred trying to travel: Couldn't decode the user status")
+                NSLog("An error occurred trying to travel: \(error)")
                 completion(error, nil)
                 return
             }
@@ -133,6 +134,58 @@ class APIHelper {
                 return
             } catch {
                 NSLog("An error occurred trying to check status: \(error)")
+                completion(error, nil)
+                return
+            }
+        }.resume()
+    }
+    
+    
+    func sell(_ treasure: String, isConfirming: Bool = false, completion: @escaping (Error?, AdventureStatus?) -> Void) {
+     
+        // MARK: URL request set up
+        let url = APIHelper.baseURL.appendingPathComponent("move/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        var bodyDict = ["name": treasure]
+        if isConfirming {
+            bodyDict["confirm"] = "yes"
+        }
+        
+        // MARK: Body json encoding
+        do {
+            let bodyData = try JSONEncoder().encode(bodyDict)
+            request.httpBody = bodyData
+        } catch {
+            NSLog("Error encoding body data: \(error)")
+            completion(error, nil)
+            return
+        }
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to sell '\(treasure)': \(error)")
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("An error occurred trying to sell '\(treasure)': No data was returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            // MARK: Data decoding
+            do {
+                let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                completion(nil, adventureStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to sell '\(treasure)': \(error)")
                 completion(error, nil)
                 return
             }
