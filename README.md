@@ -1,5 +1,7 @@
 # Lambda Treasure Hunt
 
+[Trello Board](https://trello.com/b/rhDJmreO)
+
 Welcome to the first annual Lambda Treasure Hunt!
 
 After the war between the humans and machines, we were left in a world straddling the line between physical and digital. You, the elite chosen of Lambda School, have been selected to participate in an hunt for digital riches. Great glory and rewards await the most efficient treasure hunters. Will you divine the many secrets of the ever-evolving island and prove yourself worthy of our algorithmic overlords?
@@ -203,13 +205,13 @@ Happy hunting!
 
 ## Trello Set Up:
 
-- [ ] Create a Trello account if you don't have one already
-- [ ] Create a new board called "LambdaMUD - {Your Name}"
-- [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-- [ ] Fill in the `To Do` list with the MVP features listed below
-- [ ] Fill in the `backlog` list with all the extra features listed below
-- [ ] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your lead PM for guidance
-- [ ] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
+- [X] Create a Trello account if you don't have one already
+- [X] Create a new board called "LambdaMUD - {Your Name}"
+- [X] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+- [X] Fill in the `To Do` list with the MVP features listed below
+- [X] Fill in the `backlog` list with all the extra features listed below
+- [X] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your lead PM for guidance
+- [X] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
 
 ## MVP Features:
 
@@ -226,30 +228,3 @@ Happy hunting!
 
 Upon your first commit, please submit a Pull Request and add _both_ the
 **Trello Set Up** and **MVP Features** Task lists to your first Pull
-Request comment:
-
-```markdown
-## Trello Set Up:
-
-- [ ] Create a Trello account if you don't have one already
-- [ ] Create a new board called "LambdaMUD - {Your Name}"
-- [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
-- [ ] Fill in the `To Do` list with the MVP features listed below
-- [ ] Fill in the `backlog` list with all the extra features listed below
-- [ ] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your lead PM for guidance
-- [ ] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
-
-## MVP Features:
-
-#### Client
-- [ ] Create a standalone frontend app that communicates with the server via API calls
-- [ ] Display a visual representation of the LambdaMUD Island map.
-- [ ] Automated server requests to handle cooldown and traverse the map
-- [ ] Manual control override to move to specific locations on the map
-- [ ] Ability to pick up and sell discovered treasure
-
-
-#### General
-- [ ] Header comments in all source files that describe overall what the file does
-- [ ] Header comments on all functions that describe what the function does, function arguments, and return values
-```
