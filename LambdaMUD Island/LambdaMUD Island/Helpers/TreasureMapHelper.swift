@@ -32,8 +32,12 @@ class TreasureMapHelper {
 
     
     // MARK: - Methods
+    
+    func getMap() -> [Int: [String: Any]]{
+        return UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
+    }
 
-    func traverseAllRooms() {
+    func travel(completion: @escaping (TimeInterval?) -> Void) {
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
         let currentRoomID = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
         
@@ -48,11 +52,15 @@ class TreasureMapHelper {
         
         if unexplored.count > 0 {
             APIHelper.shared.travel(unexplored[0]) { (_, status) in
-                guard let status = status else { return }
+                guard let status = status else {
+                    completion(nil)
+                    return
+                }
                 self.updateMap(from: currentRoomID, dir: unexplored[0], status: status)
                 self.path.append(unexplored[0])
                 self.stack.append(unexplored[0])
                 self.backlog.append(currentRoomID)
+                completion(20.0)
             }
         } else {
             let dir = stack.popLast() ?? "n"
@@ -62,9 +70,11 @@ class TreasureMapHelper {
                 guard let status = status, status.roomID != currentRoomID else {
                     self.stack.append(dir)
                     self.backlog.append(futureID)
+                    completion(nil)
                     return
                 }
                 self.path.append(oppositeDir)
+                completion(10.0)
             }
         }
     }

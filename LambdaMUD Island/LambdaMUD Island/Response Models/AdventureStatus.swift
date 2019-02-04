@@ -53,8 +53,8 @@ struct AdventureStatus: Decodable {
         let coordinates = try container.decode(String.self, forKey: .coordinates)
         _ = coordinates.dropFirst()
         _ = coordinates.dropLast()
-        let players = try container.decode([String].self, forKey: .players)
-        let items = try container.decode([String].self, forKey: .items)
+        let players = try container.decodeIfPresent([String].self, forKey: .players) ?? []
+        let items = try container.decodeIfPresent([String].self, forKey: .items) ?? []
         let exits = try container.decode([String].self, forKey: .exits)
         let cooldown = try container.decode(Float.self, forKey: .cooldown)
         let errors = try container.decode([String].self, forKey: .errors)

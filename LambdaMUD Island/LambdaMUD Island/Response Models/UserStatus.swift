@@ -12,7 +12,7 @@ import Foundation
 struct UserStatus: Decodable {
     
     let name: String
-    let cooldown: Int
+    let cooldown: Float
     let encumbrance: Int
     let strength: Int
     let speed: Int
