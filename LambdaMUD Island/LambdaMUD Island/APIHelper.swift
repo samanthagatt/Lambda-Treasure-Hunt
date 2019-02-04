@@ -171,7 +171,7 @@ class APIHelper {
             
             // MARK: Error handling
             if let error = error {
-                NSLog("An error occurred trying to sell '\(treasure)': \(error)")
+                NSLog("An error occurred trying to \(isDropping ? "drop" : "take") '\(treasure)': \(error)")
                 completion(error)
                 return
             }

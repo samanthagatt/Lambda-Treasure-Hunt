@@ -193,3 +193,63 @@ curl -X POST -H 'Authorization: Token 7a375b52bdc410eebbc878ed3e58b2e94a8cb607' 
 The island is constantly evolving and full of mysteries. As time passes and you explore the map, you will discover ancient clues and artifacts which will lead to greater power and riches.
 
 Happy hunting!
+
+## Git Commits
+
+- You are required to showcase progress with at least 1 commit a day.
+    This will let your project manager know where you are and if you need
+    help. This also allows the client to get progress reports from the
+    company in a real world setting.
+
+## Trello Set Up:
+
+- [ ] Create a Trello account if you don't have one already
+- [ ] Create a new board called "LambdaMUD - {Your Name}"
+- [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+- [ ] Fill in the `To Do` list with the MVP features listed below
+- [ ] Fill in the `backlog` list with all the extra features listed below
+- [ ] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your lead PM for guidance
+- [ ] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
+
+## MVP Features:
+
+#### Client
+- [ ] Create a standalone frontend app that communicates with the server via API calls
+- [ ] Display a visual representation of the LambdaMUD Island map.
+- [ ] Automated server requests to handle cooldown and traverse the map
+- [ ] Manual control override to move to specific locations on the map
+- [ ] Ability to pick up and sell discovered treasure
+
+#### General
+- [ ] Header comments in all source files that describe overall what the file does
+- [ ] Header comments on all functions that describe what the function does, function arguments, and return values
+
+Upon your first commit, please submit a Pull Request and add _both_ the
+**Trello Set Up** and **MVP Features** Task lists to your first Pull
+Request comment:
+
+```markdown
+## Trello Set Up:
+
+- [ ] Create a Trello account if you don't have one already
+- [ ] Create a new board called "LambdaMUD - {Your Name}"
+- [ ] Create lists titled `backlog`,`To Do`, `In Progress`, and `Done`
+- [ ] Fill in the `To Do` list with the MVP features listed below
+- [ ] Fill in the `backlog` list with all the extra features listed below
+- [ ] Share your board with the project manager that has been assigned to you. If you have not been assigned yet, reach out to your lead PM for guidance
+- [ ] Add your Trello URL to your project's README.md file. Commit the change, push it to your repository & submit a pull request
+
+## MVP Features:
+
+#### Client
+- [ ] Create a standalone frontend app that communicates with the server via API calls
+- [ ] Display a visual representation of the LambdaMUD Island map.
+- [ ] Automated server requests to handle cooldown and traverse the map
+- [ ] Manual control override to move to specific locations on the map
+- [ ] Ability to pick up and sell discovered treasure
+
+
+#### General
+- [ ] Header comments in all source files that describe overall what the file does
+- [ ] Header comments on all functions that describe what the function does, function arguments, and return values
+```
