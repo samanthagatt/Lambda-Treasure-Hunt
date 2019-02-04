@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+// MARK: Direction enum
+
 /// Enum of all four cardinal directions
 enum Direction: String, Decodable {
     case north = "n"
@@ -30,13 +33,20 @@ enum Direction: String, Decodable {
     }
 }
 
+
+// MARK: - APIHelper
 class APIHelper {
+    
+    // MARK: Properties
     
     /// Shared instance of APIHelper
     static let shared = APIHelper()
     
     /// Base URL for all network requests
     private static let baseURL = URL(string: "https://lambda-treasure-hunt.herokuapp.com/api/adv/")!
+    
+    
+    // MARK: Network requestss
     
     /// Attempts to travel in a specified direction
     func travel(_ dir: Direction, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
@@ -84,6 +94,45 @@ class APIHelper {
                 return
             } catch {
                 NSLog("An error occurred trying to travel: Couldn't decode the user status")
+                completion(error, nil)
+                return
+            }
+        }.resume()
+        
+    }
+    
+    /// Checks user status
+    func getStatus(completion: @escaping (_ error: Error?, _ status: UserStatus?) -> Void) {
+        
+        // MARK: URL request set up
+        let url = APIHelper.baseURL.appendingPathComponent("status/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to check status: \(error)")
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("An error occurred trying to check status: No data was returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            // MARK: Data decoding
+            do {
+                let userStatus = try JSONDecoder().decode(UserStatus.self, from: data)
+                completion(nil, userStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to check status: \(error)")
                 completion(error, nil)
                 return
             }

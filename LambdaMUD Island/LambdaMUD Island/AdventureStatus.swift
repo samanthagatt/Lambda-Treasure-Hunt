@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct AdventureStatus: Decodable, CustomStringConvertible {
+struct AdventureStatus: Decodable {
     
     // MARK: - Properties
     
@@ -23,10 +23,6 @@ struct AdventureStatus: Decodable, CustomStringConvertible {
     var cooldown: Float
     var errors: [String]
     var messages: [String]
-    
-    var description: String {
-        return "<Adventure Status: roomID = \(self.roomID), title = \(self.title)>"
-    }
     
     
     // MARK: - Keys for decoding
@@ -89,16 +85,16 @@ struct AdventureStatus: Decodable, CustomStringConvertible {
     
     /*
      json = {
-     "room_id": 10,
-     "title": "Room 10",
-     "description": "You are standing in an empty room.",
-     "coordinates": "(60,61)",
-     "players": [],
-     "items": [],
-     "exits": ["n", "s", "w"],
-     "cooldown": 60.0,
-     "errors": [],
-     "messages": ["You have walked north."]
+         "room_id": 10,
+         "title": "Room 10",
+         "description": "You are standing in an empty room.",
+         "coordinates": "(60,61)",
+         "players": [],
+         "items": [],
+         "exits": ["n", "s", "w"],
+         "cooldown": 60.0,
+         "errors": [],
+         "messages": ["You have walked north."]
      }
      */
 }
