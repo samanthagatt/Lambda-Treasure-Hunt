@@ -24,11 +24,11 @@ class TreasureMapHelper {
     private static let oppositeDir = ["n": "s", "s": "n", "e": "w", "w": "e"]
     
     /// Stack for reverse traversal
-    private var stack: [String] = []
+    var stack: [String] = []
     /// Traversal path
     var path: [String] = []
     /// Sequence of roomIDs
-    private var backlog: [Int] = []
+    var backlog: [Int] = []
 
     
     // MARK: - Methods
@@ -72,26 +72,28 @@ class TreasureMapHelper {
                 completion(20.0)
             }
         } else {
-            let dir = stack.popLast() ?? "n"
-            let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "s"
-            let futureID = backlog.popLast() ?? 0
-            APIHelper.shared.travel(oppositeDir, nextRoomID: futureID) { (_, status) in
-                guard let status = status, status.roomID != currentRoomID else {
-                    self.stack.append(dir)
-                    self.backlog.append(futureID)
-                    completion(nil)
-                    return
+            if stack.count > 0 {
+                let dir = stack.removeLast()
+                let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "s"
+                let futureID = backlog.popLast() ?? 0
+                APIHelper.shared.travel(oppositeDir, nextRoomID: futureID) { (_, status) in
+                    guard let status = status, status.roomID != currentRoomID else {
+                        self.stack.append(dir)
+                        self.backlog.append(futureID)
+                        completion(nil)
+                        return
+                    }
+                    self.path.append(oppositeDir)
+                    UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
+                    
+                    // Debugging
+                    if self.path.count % 10 == 0 {
+                        print(self.path)
+                    }
+                    print("Traveled backwards to room: \(status.roomID)")
+                    
+                    completion(10.0)
                 }
-                self.path.append(oppositeDir)
-                UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
-                
-                // Debugging
-                if self.path.count % 10 == 0 {
-                    print(self.path)
-                }
-                print("Traveled backwards to room: \(status.roomID)")
-                
-                completion(10.0)
             }
         }
     }
@@ -137,13 +139,22 @@ extension TreasureMapHelper {
         "0": [
             "roomID": 0,
             "title": "Darkness",
-            "roomDescription": "Dark",
+            "roomDescription": "It is too dark to see anything.",
             "coord": "60,60",
             "exits": [
                 "n": "?",
                 "s": "?",
                 "e": "?",
-                "w": "?"
+                "w": "1"
+            ]
+        ],
+        "1": [
+            "roomID": 1,
+            "title": "Darkness",
+            "roomDescription": "It is too dark to see anything.",
+            "coord": "59,60",
+            "exits": [
+                "e": "0"
             ]
         ]
     ]
