@@ -16,19 +16,20 @@ class TreasureMapHelper {
     static let shared = TreasureMapHelper()
     
     /// Key for the map dict in UserDefaults
-    private static let mapKey = "treasureMap"
+    static let mapKey = "treasureMap"
     /// Key for the user's current room id in UserDefaults
-    private static let currentRoomIDKey = "currentRoomID"
+    static let currentRoomIDKey = "currentRoomID"
+    static let pathKey = "traversalPath"
     
     /// Dict of opposite cardinal directions
-    private static let oppositeDir = ["n": "s", "s": "n", "e": "w", "w": "e"]
+    static let oppositeDir = ["n": "s", "s": "n", "e": "w", "w": "e"]
     
     /// Stack for reverse traversal
     var stack: [String] = []
     /// Traversal path
-    var path: [String] = []
+    var path: [String] = ["n", "n", "n", "e", "e", "s", "e", "e", "s", "s", "e"]
     /// Sequence of roomIDs
-    var backlog: [Int] = []
+    var backlog: [Int] = [0, 10, 19, 20, 27, 30, 31, 33, 38, 59, 104]
 
     
     // MARK: - Methods
@@ -69,13 +70,13 @@ class TreasureMapHelper {
                 }
                 print("Traveled to an unexplored room: \(status.roomID)")
                 
-                completion(20.0)
+                completion(status.cooldown)
             }
         } else {
-            if stack.count > 0 {
+            if stack.count > 0 && backlog.count > 0 {
                 let dir = stack.removeLast()
                 let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "s"
-                let futureID = backlog.popLast() ?? 0
+                let futureID = backlog.removeLast()
                 APIHelper.shared.travel(oppositeDir, nextRoomID: futureID) { (_, status) in
                     guard let status = status, status.roomID != currentRoomID else {
                         self.stack.append(dir)
@@ -92,7 +93,7 @@ class TreasureMapHelper {
                     }
                     print("Traveled backwards to room: \(status.roomID)")
                     
-                    completion(10.0)
+                    completion(status.cooldown)
                 }
             }
         }
@@ -104,7 +105,7 @@ class TreasureMapHelper {
         if let existingDict = map[String(status.roomID)] {
             roomDict = existingDict
         } else {
-            var exitsDict: [String: String] = [:]
+            var exitsDict: [String: Any] = [:]
             for dir in status.exits {
                 exitsDict[dir] = "?"
             }
@@ -119,16 +120,44 @@ class TreasureMapHelper {
         
         let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "n"
         // Should never be nil
-        var exits = roomDict["exits"] as? [String: String] ?? [:]
-        exits[oppositeDir] = String(startID)
+        var exits = roomDict["exits"] as? [String: Any] ?? [:]
+        exits[oppositeDir] = startID
         roomDict["exits"] = exits
         
-        exits = map[String(startID)]?["exits"] as? [String: String] ?? [:]
-        exits[dir] = String(status.roomID)
+        exits = map[String(startID)]?["exits"] as? [String: Any] ?? [:]
+        exits[dir] = status.roomID
         map[String(startID)]?["exits"] = exits
         
         map[String(status.roomID)] = roomDict
         UserDefaults.standard.set(map, forKey: TreasureMapHelper.mapKey)
+    }
+    
+    
+    
+    static func getPath(from start: Int, to dest: Int, _ queue: [(roomID: Int, path: [(dir: String, room: Int)])] = [], _ visited: Set<Int> = [], _ path: [(dir: String, room: Int)] = []) -> [(dir: String, room: Int)] {
+        var q = queue
+        var v = visited
+        v.insert(start)
+        let map = TreasureMapHelper.shared.getMap()
+        let exits = map[String(start)]?["exits"] as? [String: Any]
+        for (dir, id) in exits! {
+            guard let id = id as? Int else { continue }
+            var p = path
+            p.append((dir: dir, room: id))
+            if id == dest {
+                return p
+            }
+            if !v.contains(Int(id)) {
+                q.append((roomID: id, path: p))
+            }
+        }
+        if q.count > 0 {
+            let nextRoom = q.removeFirst()
+            return TreasureMapHelper.getPath(from: nextRoom.roomID, to: dest, q, v, nextRoom.path)
+        } else {
+            print("")
+        }
+        return []
     }
 }
 
@@ -143,9 +172,9 @@ extension TreasureMapHelper {
             "coord": "60,60",
             "exits": [
                 "n": "?",
-                "s": "?",
+                "s": 2,
                 "e": "?",
-                "w": "1"
+                "w": 1
             ]
         ],
         "1": [
@@ -154,8 +183,9 @@ extension TreasureMapHelper {
             "roomDescription": "It is too dark to see anything.",
             "coord": "59,60",
             "exits": [
-                "e": "0"
+                "e": 0
             ]
         ]
     ]
+    static let pathSoFar = [""]
 }

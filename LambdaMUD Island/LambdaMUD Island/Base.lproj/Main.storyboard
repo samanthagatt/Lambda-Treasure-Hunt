@@ -18,22 +18,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahf-hu-BYy">
-                                <rect key="frame" x="249" y="172.5" width="169" height="30"/>
-                                <state key="normal" title="Start automatic traversal"/>
-                                <connections>
-                                    <action selector="startTraversal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dfr-wo-nXq"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="d5k-XG-owV">
+                                <rect key="frame" x="249" y="149.5" width="169" height="76"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP9-bk-90p">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
+                                        <state key="normal" title="Travel back to 0"/>
+                                        <connections>
+                                            <action selector="travelBackTo0:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mfp-3W-uY7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahf-hu-BYy">
+                                        <rect key="frame" x="0.0" y="46" width="169" height="30"/>
+                                        <state key="normal" title="Start automatic traversal"/>
+                                        <connections>
+                                            <action selector="startTraversal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dfr-wo-nXq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ahf-hu-BYy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4fL-pb-L9f"/>
-                            <constraint firstItem="ahf-hu-BYy" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zGt-Ji-aVa"/>
+                            <constraint firstItem="d5k-XG-owV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H4z-0h-pmh"/>
+                            <constraint firstItem="d5k-XG-owV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KVE-fb-eHj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backTo0Button" destination="IP9-bk-90p" id="9Af-SD-dbD"/>
                         <outlet property="startTraversalButton" destination="ahf-hu-BYy" id="Q9M-eW-EUc"/>
                     </connections>
                 </viewController>

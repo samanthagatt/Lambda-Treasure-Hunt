@@ -20,7 +20,7 @@ struct AdventureStatus: Decodable {
     var players: [String]
     var items: [String]
     var exits: [String]
-    var cooldown: Float
+    var cooldown: Double
     var errors: [String]
     var messages: [String]
     
@@ -56,7 +56,7 @@ struct AdventureStatus: Decodable {
         let players = try container.decodeIfPresent([String].self, forKey: .players) ?? []
         let items = try container.decodeIfPresent([String].self, forKey: .items) ?? []
         let exits = try container.decode([String].self, forKey: .exits)
-        let cooldown = try container.decode(Float.self, forKey: .cooldown)
+        let cooldown = try container.decode(Double.self, forKey: .cooldown)
         let errors = try container.decode([String].self, forKey: .errors)
         let messages = try container.decode([String].self, forKey: .messages)
         
