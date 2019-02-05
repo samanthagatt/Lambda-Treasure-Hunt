@@ -26,26 +26,23 @@ class TreasureMapHelper {
     /// Stack for reverse traversal
     private var stack: [String] = []
     /// Traversal path
-    private var path: [String] = []
+    var path: [String] = []
     /// Sequence of roomIDs
     private var backlog: [Int] = []
 
     
     // MARK: - Methods
     
-    func getMap() -> [Int: [String: Any]]{
-        return UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
+    func getMap() -> [String: [String: Any]]{
+        return UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
     }
 
     func travel(completion: @escaping (TimeInterval?) -> Void) {
         
-        // Debugging
-        print("TreasureMapHelper.shared.travel() called")
+        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
+        let currentRoomID = UserDefaults.standard.value(forKey: TreasureMapHelper.currentRoomIDKey) as? Int ?? 0
         
-        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
-        let currentRoomID = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
-        
-        let currentRoom = map[currentRoomID] ?? map[0]!
+        let currentRoom = map[String(currentRoomID)] ?? map["0"]!
         let adjacentRooms = currentRoom["exits"] as? [String: Any] ?? [:]
         var unexplored: [String] = []
         for (dir, id) in adjacentRooms {
@@ -57,10 +54,6 @@ class TreasureMapHelper {
         if unexplored.count > 0 {
             APIHelper.shared.travel(unexplored[0]) { (_, status) in
                 guard let status = status else {
-                    
-                    // Debugging
-                    print("An error occurred trying to explore")
-                    
                     completion(nil)
                     return
                 }
@@ -68,11 +61,12 @@ class TreasureMapHelper {
                 self.path.append(unexplored[0])
                 self.stack.append(unexplored[0])
                 self.backlog.append(currentRoomID)
+                UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
+                
+                // Debugging
                 if self.path.count % 10 == 0 {
                     print(self.path)
                 }
-                
-                // Debugging
                 print("Traveled to an unexplored room: \(status.roomID)")
                 
                 completion(20.0)
@@ -85,14 +79,11 @@ class TreasureMapHelper {
                 guard let status = status, status.roomID != currentRoomID else {
                     self.stack.append(dir)
                     self.backlog.append(futureID)
-                    
-                    // Debugging
-                    print("An error occured trying to backtrack")
-                    
                     completion(nil)
                     return
                 }
                 self.path.append(oppositeDir)
+                UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
                 
                 // Debugging
                 if self.path.count % 10 == 0 {
@@ -106,12 +97,12 @@ class TreasureMapHelper {
     }
     
     private func updateMap(from startID: Int, dir: String, status: AdventureStatus) {
-        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [Int: [String: Any]] ?? TreasureMapHelper.startingMapGraph
+        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
         var roomDict: [String: Any]
-        if let existingDict = map[status.roomID] {
+        if let existingDict = map[String(status.roomID)] {
             roomDict = existingDict
         } else {
-            var exitsDict: [String: Any] = [:]
+            var exitsDict: [String: String] = [:]
             for dir in status.exits {
                 exitsDict[dir] = "?"
             }
@@ -126,15 +117,15 @@ class TreasureMapHelper {
         
         let oppositeDir = TreasureMapHelper.oppositeDir[dir] ?? "n"
         // Should never be nil
-        var exits = roomDict["exits"] as? [String: Int] ?? [:]
-        exits[oppositeDir] = startID
+        var exits = roomDict["exits"] as? [String: String] ?? [:]
+        exits[oppositeDir] = String(startID)
         roomDict["exits"] = exits
         
-        exits = map[startID]?["exits"] as? [String: Int] ?? [:]
-        exits[dir] = status.roomID
-        map[startID]?["exits"] = exits
+        exits = map[String(startID)]?["exits"] as? [String: String] ?? [:]
+        exits[dir] = String(status.roomID)
+        map[String(startID)]?["exits"] = exits
         
-        map[status.roomID] = roomDict
+        map[String(status.roomID)] = roomDict
         UserDefaults.standard.set(map, forKey: TreasureMapHelper.mapKey)
     }
 }
@@ -142,14 +133,14 @@ class TreasureMapHelper {
 
 extension TreasureMapHelper {
     /// Starting map based off of personal exploration
-    private static let startingMapGraph: [Int: [String: Any]] = [
-        0: [
+    static let startingMap: [String: [String: Any]] = [
+        "0": [
             "roomID": 0,
             "title": "Darkness",
-            "description": "Dark",
+            "roomDescription": "Dark",
             "coord": "60,60",
             "exits": [
-                "n": 10,
+                "n": "?",
                 "s": "?",
                 "e": "?",
                 "w": "?"
