@@ -213,7 +213,7 @@ class TreasureMapHelper {
                                         }
                                     }
                                     self.sell(count: count) {
-                                        self.getRandomTreasure(s: stack, v: visited, completion: completion)
+                                        self.getRandomTreasure(completion: completion)
                                     }
                                 }
                             }
@@ -257,7 +257,7 @@ class TreasureMapHelper {
                     APIHelper.shared.getStatus() { (error, playerStatus) in
                         guard let playerStatus = playerStatus else { fatalError() }
                         inventory = playerStatus.inventory
-                        print("encumbrance / strength: \(playerStatus.encumbrance) / \(playerStatus.strength)")
+                        print("encumbrance/strength: \(playerStatus.encumbrance)/\(playerStatus.strength)")
                         if playerStatus.encumbrance < playerStatus.strength - 1 {
                             self.takeTreasure(count: count - 1, inv: inventory, completion: completion)
                         } else {
