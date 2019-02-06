@@ -162,7 +162,7 @@ class TreasureMapHelper {
     
     
     
-    func getRandomTreasure(completion: @escaping (TimeInterval?) -> Void) {
+    func getRandomTreasure(completion: @escaping (_ cooldown: TimeInterval?, _ goToStore: Bool) -> Void) {
         
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
         let currentRoomID = UserDefaults.standard.value(forKey: TreasureMapHelper.currentRoomIDKey) as? Int ?? 0
@@ -174,25 +174,83 @@ class TreasureMapHelper {
         let value = random.value as? Int
         
         APIHelper.shared.travel(random.key, nextRoomID: value) { (_, status) in
+            let startTime = Date()
+            
             guard let status = status else {
-                completion(nil)
+                completion(nil, false)
                 return
             }
+            
+            print("Traveled to room \(status.roomID)")
             
             UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
             
             if status.items.count > 0 {
-                for (index, item) in status.items.enumerated() {
-                    if index != 0 {
-                        
+                let bestTreasures = self.pickBestTreasures(status.items)
+                
+                if bestTreasures.count > 0 {
+                    var bestTreasure = bestTreasures[0]
+                    let timeSince = Date().timeIntervalSince(startTime)
+                    let timeRemaining = status.cooldown > timeSince ? status.cooldown - timeSince : 0.0
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + timeRemaining) {
+                        APIHelper.shared.handleTreasure(bestTreasure.name) { (error, status) in
+                            let startTime = Date()
+                            
+                            guard let status = status else {
+                                completion(nil, false)
+                                return
+                            }
+                            
+                            print(status.messages)
+                        }
                     }
                 }
             } else {
                 self.getRandomTreasure(completion: completion)
             }
        
-            completion(status.cooldown)
+            completion(status.cooldown, false)
         }
+    }
+    
+    private func pickBestTreasures(_ array: [String]) -> [(name: String, weight: Int)] {
+        var typesOfItems: [String: Int] = [:]
+        for item in array {
+            var itemCount = typesOfItems[item] ?? 0
+            itemCount += 1
+            typesOfItems[item] = itemCount
+        }
+        var bestTreasures: [(name: String, weight: Int)] = []
+        if let _ = typesOfItems["sparkling treasure"] {
+            bestTreasures.append(("sparkling treasure", 1))
+        }
+        if let _ = typesOfItems["brilliant treasure"] {
+            bestTreasures.append(("brilliant treasure", 2))
+        }
+        if let _ = typesOfItems["dazzling treasure"] {
+            bestTreasures.append(("dazzling treasure", 2))
+        }
+        if let _ = typesOfItems["spectacular treasure"] {
+            bestTreasures.append(("spectacular treasure", 3))
+        }
+        if let _ = typesOfItems["amazing treasure"] {
+            bestTreasures.append(("amazing treasure", 3))
+        }
+        if let _ = typesOfItems["great treasure"] {
+            bestTreasures.append(("great treasure", 4))
+        }
+        if let _ = typesOfItems["shiny treasure"] {
+            bestTreasures.append(("shiny treasure", 4))
+        }
+        if let _ = typesOfItems["small treasure"] {
+            bestTreasures.append(("small treasure", 5))
+        }
+        if let _ = typesOfItems["tiny treasure"] {
+            bestTreasures.append(("tiny treasure", 5))
+        }
+        
+        return bestTreasures
     }
 }
 
@@ -206,18 +264,9 @@ extension TreasureMapHelper {
             "coord": "60,60",
             "exits": [
                 "n": "?",
-                "s": 2,
+                "s": "?",
                 "e": "?",
-                "w": 1
-            ]
-        ],
-        "1": [
-            "roomID": 1,
-            "title": "Darkness",
-            "roomDescription": "It is too dark to see anything.",
-            "coord": "59,60",
-            "exits": [
-                "e": 0
+                "w": "?"
             ]
         ]
     ]

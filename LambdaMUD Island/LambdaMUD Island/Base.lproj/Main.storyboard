@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="d5k-XG-owV">
-                                <rect key="frame" x="249" y="149.5" width="169" height="76"/>
+                                <rect key="frame" x="277.5" y="149.5" width="112" height="76"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP9-bk-90p">
                                         <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
@@ -28,11 +28,11 @@
                                             <action selector="travelBackTo0:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mfp-3W-uY7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahf-hu-BYy">
-                                        <rect key="frame" x="0.0" y="46" width="169" height="30"/>
-                                        <state key="normal" title="Start automatic traversal"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSw-BC-DVm">
+                                        <rect key="frame" x="0.0" y="46" width="112" height="30"/>
+                                        <state key="normal" title="Collect Treasure"/>
                                         <connections>
-                                            <action selector="startTraversal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dfr-wo-nXq"/>
+                                            <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fSB-2s-bLN"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -47,7 +47,7 @@
                     </view>
                     <connections>
                         <outlet property="backTo0Button" destination="IP9-bk-90p" id="9Af-SD-dbD"/>
-                        <outlet property="startTraversalButton" destination="ahf-hu-BYy" id="Q9M-eW-EUc"/>
+                        <outlet property="treasureButton" destination="jSw-BC-DVm" id="tlZ-aa-sQi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

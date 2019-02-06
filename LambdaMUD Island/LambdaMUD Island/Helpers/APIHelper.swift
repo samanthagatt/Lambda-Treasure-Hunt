@@ -112,7 +112,7 @@ class APIHelper {
     }
     
     /// Picks up or drops specified treasure
-    func handleTreasure(_ treasure: String, isDropping: Bool = false, completion: @escaping (_ error: Error?) -> Void = {(_) in }) {
+    func handleTreasure(_ treasure: String = "treasure", isDropping: Bool = false, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
         
         // MARK: URL request set up
         let url: URL
@@ -133,21 +133,34 @@ class APIHelper {
             request.httpBody = bodyData
         } catch {
             NSLog("Error encoding body data: \(error)")
-            completion(error)
+            completion(error, nil)
             return
         }
         
         // MARK: Network request
         URLSession.shared.dataTask(with: request) { (data, _, error) in
-            
             // MARK: Error handling
             if let error = error {
                 NSLog("An error occurred trying to \(isDropping ? "drop" : "take") '\(treasure)': \(error)")
-                completion(error)
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("")
+                completion(NSError(), nil)
                 return
             }
             
-            completion(nil)
+            // MARK: Data decoding
+            do {
+                let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                completion(nil, adventureStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to check status: \(error)")
+                completion(error, nil)
+                return
+            }
         }.resume()
     }
     
@@ -197,6 +210,41 @@ class APIHelper {
                 return
             } catch {
                 NSLog("An error occurred trying to sell '\(treasure)': \(error)")
+                completion(error, nil)
+                return
+            }
+        }.resume()
+    }
+    
+    
+    func getInit(completion: @escaping (Error?, AdventureStatus?) -> Void) {
+        // MARK: URL request set up
+        let url = APIHelper.baseURL.appendingPathComponent("init/")
+        var request = URLRequest(url: url)
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to get init: \(error)")
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("An error occurred trying to get init: No data was returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            // MARK: Data decoding
+            do {
+                let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                completion(nil, adventureStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to decode get init AdventureStatus: \(error)")
                 completion(error, nil)
                 return
             }
