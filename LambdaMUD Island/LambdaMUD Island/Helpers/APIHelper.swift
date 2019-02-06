@@ -168,7 +168,7 @@ class APIHelper {
     func sell(_ treasure: String, isConfirming: Bool = false, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
      
         // MARK: URL request set up
-        let url = APIHelper.baseURL.appendingPathComponent("move/")
+        let url = APIHelper.baseURL.appendingPathComponent("sell/")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue(authToken, forHTTPHeaderField: "Authorization")
