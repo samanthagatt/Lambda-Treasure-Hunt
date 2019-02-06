@@ -187,43 +187,32 @@ class TreasureMapHelper {
             UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
             
             if status.items.count > 0 {
-                var isTreasure = false
+                var treasures: [String] = []
                 for item in status.items {
                     if item.contains("treasure") {
-                        isTreasure = true
+                        treasures.append(item)
                     } else {
                         print("Found something new!!!!!")
                     }
                 }
-                if isTreasure {
+                if treasures.count > 0 {
                     let timePassed = 0 - start.timeIntervalSinceNow
                     let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
                     DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
-                        APIHelper.shared.handleTreasure() { (error, takeStatus) in
-                            guard let takeStatus = takeStatus else { fatalError("No status returned or whatever") }
-                            print("Picked up treasure")
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + takeStatus.cooldown) {
-                                APIHelper.shared.getStatus() { (error, playerStatus) in
-                                    guard let playerStatus = playerStatus else { fatalError("No status returned or whatever") }
-                                    print("encumbrance: \(playerStatus.encumbrance)\nstrength: \(playerStatus.strength)")
-                                    if playerStatus.encumbrance < playerStatus.strength - 1 {
-                                        self.getRandomTreasure(completion: completion)
-                                    } else {
-                                        let path = TreasureMapHelper.getPath(from: takeStatus.roomID, to: 1)
-                                        TreasureMapHelper.travelTo(path: path) {
-                                            
-                                            var count = 0
-                                            for item in playerStatus.inventory {
-                                                if item.contains("treasure") {
-                                                    count += 1
-                                                }
-                                            }
-                                            
-                                            self.sell(count: count) {
-                                                self.getRandomTreasure(completion: completion)
-                                            }
+                        self.takeTreasure(count: treasures.count) { goToStore, inventory in
+                            if !goToStore {
+                                self.getRandomTreasure(completion: completion)
+                            } else {
+                                let path = TreasureMapHelper.getPath(from: status.roomID, to: 1)
+                                TreasureMapHelper.travelTo(path: path) {
+                                    var count = 0
+                                    for item in inventory {
+                                        if item.contains("treasure") {
+                                            count += 1
                                         }
+                                    }
+                                    self.sell(count: count) {
+                                        self.getRandomTreasure(completion: completion)
                                     }
                                 }
                             }
@@ -254,6 +243,33 @@ class TreasureMapHelper {
             }
         } else {
             completion()
+        }
+    }
+    
+    func takeTreasure(count: Int, inv: [String] = [], completion: @escaping (_ goToStore: Bool, _ inventory: [String]) -> Void) {
+        var inventory = inv
+        if count > 0 {
+            APIHelper.shared.handleTreasure() { error, status in
+                let start = Date()
+                guard let status = status else { fatalError("No status returned or whatever") }
+                print("Picked up treasure")
+                let timePassed = 0 - start.timeIntervalSinceNow
+                let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                    APIHelper.shared.getStatus() { (error, playerStatus) in
+                        guard let playerStatus = playerStatus else { fatalError() }
+                        inventory = playerStatus.inventory
+                        print("encumbrance: \(playerStatus.encumbrance)\nstrength: \(playerStatus.strength)")
+                        if playerStatus.encumbrance < playerStatus.strength - 1 {
+                            self.takeTreasure(count: count - 1, inv: inventory, completion: completion)
+                        } else {
+                            completion(true, inventory)
+                        }
+                    }
+                }
+            }
+        } else {
+            completion(false, inventory)
         }
     }
     
