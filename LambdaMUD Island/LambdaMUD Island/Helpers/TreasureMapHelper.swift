@@ -134,7 +134,7 @@ class TreasureMapHelper {
     
     
     
-    static func getPath(from start: Int, to dest: Int, _ queue: [(roomID: Int, path: [(dir: String, room: Int)])] = [], _ visited: Set<Int> = [], _ path: [(dir: String, room: Int)] = []) -> [(dir: String, room: Int)] {
+    static func getPath(from start: Int = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey), to dest: Int, _ queue: [(roomID: Int, path: [(dir: String, room: Int)])] = [], _ visited: Set<Int> = [], _ path: [(dir: String, room: Int)] = []) -> [(dir: String, room: Int)] {
         var q = queue
         var v = visited
         v.insert(start)
@@ -162,49 +162,50 @@ class TreasureMapHelper {
     
     
     
-    func getRandomTreasure(completion: @escaping (_ cooldown: TimeInterval?, _ goToStore: Bool) -> Void) {
+    func getRandomTreasure(s: [Int] = [], v: Set<Int> = [], completion: @escaping (_ cooldown: TimeInterval?, _ goToStore: Bool) -> Void) {
+        
+        var stack = s
+        var visited = v
         
         var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
         let currentRoomID = UserDefaults.standard.value(forKey: TreasureMapHelper.currentRoomIDKey) as? Int ?? 0
         
         let currentRoom = map[String(currentRoomID)] ?? map["0"]!
         let adjacentRooms = currentRoom["exits"] as? [String: Any] ?? [:]
-    
-        guard let random = adjacentRooms.randomElement() else { return }
-        let value = random.value as? Int
         
-        APIHelper.shared.travel(random.key, nextRoomID: value) { (_, status) in
-            
-            let start = Date()
-            
-            guard let status = status else {
-                completion(nil, false)
-                return
+        for (_, id) in adjacentRooms {
+            guard let id = id as? Int else { fatalError() }
+            if !visited.contains(id) {
+                stack.append(id)
             }
-            
-            print("Traveled to room \(status.roomID)")
-            
-            UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
-            
-            if status.items.count > 0 {
-                var treasures: [String] = []
-                for item in status.items {
-                    if item.contains("treasure") {
-                        treasures.append(item)
-                    } else {
-                        print("Found something new!!!!!")
-                    }
+        }
+        
+        if stack.count > 0 {
+            let nextRoomID = stack.removeLast()
+            let path = TreasureMapHelper.getPath(to: nextRoomID)
+            visited.insert(nextRoomID)
+            TreasureMapHelper.travelTo(path: path) { status in
+                guard let status = status else {
+                    completion(nil, false)
+                    return
                 }
-                if treasures.count > 0 {
-                    let timePassed = 0 - start.timeIntervalSinceNow
-                    let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
-                    DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                
+                if status.items.count > 0 {
+                    var treasures: [String] = []
+                    for item in status.items {
+                        if item.contains("treasure") {
+                            treasures.append(item)
+                        } else {
+                            print("Found something new!!!!!")
+                        }
+                    }
+                    if treasures.count > 0 {
                         self.takeTreasure(count: treasures.count) { goToStore, inventory in
                             if !goToStore {
-                                self.getRandomTreasure(completion: completion)
+                                self.getRandomTreasure(s: stack, v: visited, completion: completion)
                             } else {
                                 let path = TreasureMapHelper.getPath(from: status.roomID, to: 1)
-                                TreasureMapHelper.travelTo(path: path) {
+                                TreasureMapHelper.travelTo(path: path) { _ in
                                     var count = 0
                                     for item in inventory {
                                         if item.contains("treasure") {
@@ -212,18 +213,14 @@ class TreasureMapHelper {
                                         }
                                     }
                                     self.sell(count: count) {
-                                        self.getRandomTreasure(completion: completion)
+                                        self.getRandomTreasure(s: stack, v: visited, completion: completion)
                                     }
                                 }
                             }
                         }
                     }
-                }
-            } else {
-                let timePassed = start.timeIntervalSinceNow
-                let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
-                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
-                    self.getRandomTreasure(completion: completion)
+                } else {
+                    self.getRandomTreasure(s: stack, v: visited, completion: completion)
                 }
             }
         }
@@ -235,6 +232,7 @@ class TreasureMapHelper {
             APIHelper.shared.sell("treasure", isConfirming: true) { error, status in
                 let start = Date()
                 guard let status = status else { fatalError("Ahhhhh") }
+                print("Sold treasure!")
                 let timePassed = 0 - start.timeIntervalSinceNow
                 let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
                 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
@@ -259,7 +257,7 @@ class TreasureMapHelper {
                     APIHelper.shared.getStatus() { (error, playerStatus) in
                         guard let playerStatus = playerStatus else { fatalError() }
                         inventory = playerStatus.inventory
-                        print("encumbrance: \(playerStatus.encumbrance)\nstrength: \(playerStatus.strength)")
+                        print("encumbrance / strength: \(playerStatus.encumbrance) / \(playerStatus.strength)")
                         if playerStatus.encumbrance < playerStatus.strength - 1 {
                             self.takeTreasure(count: count - 1, inv: inventory, completion: completion)
                         } else {
@@ -274,24 +272,29 @@ class TreasureMapHelper {
     }
     
     
-    static func travelTo(path: [(dir: String, room: Int)], completion: @escaping () -> Void = { }) {
+    static func travelTo(path: [(dir: String, room: Int)], s: AdventureStatus? = nil, completion: @escaping (AdventureStatus?) -> Void = { _ in }) {
+        var status = s
         if path.count > 0 {
             var p = path
             let nextMove = p.removeFirst()
-            APIHelper.shared.travel(nextMove.dir, nextRoomID: nextMove.room) { (error, status) in
+            APIHelper.shared.travel(nextMove.dir, nextRoomID: nextMove.room) { (error, advStatus) in
+                let start = Date()
                 if let _ = error, status == nil {
                     p.insert(nextMove, at: 0)
                     print("ERRORRRRRRR")
                 }
-                print("Traveled to room: \(String(status?.roomID ?? 0))")
-                let cd = status?.cooldown ?? 15.0
-                let cooldown = Int(ceil(cd))
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(cooldown)) {
-                    self.travelTo(path: p, completion: completion)
+                guard let advStatus = advStatus else { fatalError() }
+                status = advStatus
+                UserDefaults.standard.set(advStatus.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
+                print("Traveled to room \(advStatus.roomID)")
+                let timePassed = 0 - start.timeIntervalSinceNow
+                let waitTime = advStatus.cooldown > timePassed ? advStatus.cooldown - timePassed : 0.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                    self.travelTo(path: p, s: status, completion: completion)
                 }
             }
         } else {
-            completion()
+            completion(status)
         }
     }
     
