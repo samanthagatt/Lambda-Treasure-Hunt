@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         backTo0Button.isEnabled = false
         
         let currentRoom = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
-        var p = TreasureMapHelper.getPath(from: currentRoom, to: 1)
+        var p = TreasureMapHelper.getPath(from: currentRoom, to: 185)
         let nextMove = p.removeFirst()
         APIHelper.shared.travel(nextMove.dir, nextRoomID: nextMove.room) { (error, status) in
             if let _ = error, status == nil {
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func toggleCollectTreasure(_ sender: Any) {
-        
+        TreasureMapHelper.shared.getRandomTreasure() { (_, _) in }
     }
     
     

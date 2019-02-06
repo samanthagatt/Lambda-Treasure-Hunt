@@ -174,7 +174,8 @@ class TreasureMapHelper {
         let value = random.value as? Int
         
         APIHelper.shared.travel(random.key, nextRoomID: value) { (_, status) in
-            let startTime = Date()
+            
+            let start = Date()
             
             guard let status = status else {
                 completion(nil, false)
@@ -186,31 +187,95 @@ class TreasureMapHelper {
             UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
             
             if status.items.count > 0 {
-                let bestTreasures = self.pickBestTreasures(status.items)
-                
-                if bestTreasures.count > 0 {
-                    var bestTreasure = bestTreasures[0]
-                    let timeSince = Date().timeIntervalSince(startTime)
-                    let timeRemaining = status.cooldown > timeSince ? status.cooldown - timeSince : 0.0
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + timeRemaining) {
-                        APIHelper.shared.handleTreasure(bestTreasure.name) { (error, status) in
-                            let startTime = Date()
+                var isTreasure = false
+                for item in status.items {
+                    if item.contains("treasure") {
+                        isTreasure = true
+                    } else {
+                        print("Found something new!!!!!")
+                    }
+                }
+                if isTreasure {
+                    let timePassed = 0 - start.timeIntervalSinceNow
+                    let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
+                    DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                        APIHelper.shared.handleTreasure() { (error, takeStatus) in
+                            guard let takeStatus = takeStatus else { fatalError("No status returned or whatever") }
+                            print("Picked up treasure")
                             
-                            guard let status = status else {
-                                completion(nil, false)
-                                return
+                            DispatchQueue.main.asyncAfter(deadline: .now() + takeStatus.cooldown) {
+                                APIHelper.shared.getStatus() { (error, playerStatus) in
+                                    guard let playerStatus = playerStatus else { fatalError("No status returned or whatever") }
+                                    print("encumbrance: \(playerStatus.encumbrance)\nstrength: \(playerStatus.strength)")
+                                    if playerStatus.encumbrance < playerStatus.strength - 1 {
+                                        self.getRandomTreasure(completion: completion)
+                                    } else {
+                                        let path = TreasureMapHelper.getPath(from: takeStatus.roomID, to: 1)
+                                        TreasureMapHelper.travelTo(path: path) {
+                                            
+                                            var count = 0
+                                            for item in playerStatus.inventory {
+                                                if item.contains("treasure") {
+                                                    count += 1
+                                                }
+                                            }
+                                            
+                                            self.sell(count: count) {
+                                                self.getRandomTreasure(completion: completion)
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            
-                            print(status.messages)
                         }
                     }
                 }
             } else {
-                self.getRandomTreasure(completion: completion)
+                let timePassed = start.timeIntervalSinceNow
+                let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                    self.getRandomTreasure(completion: completion)
+                }
             }
-       
-            completion(status.cooldown, false)
+        }
+    }
+    
+    
+    func sell(count: Int, completion: @escaping () -> Void) {
+        if count > 0 {
+            APIHelper.shared.sell("treasure", isConfirming: true) { error, status in
+                let start = Date()
+                guard let status = status else { fatalError("Ahhhhh") }
+                let timePassed = 0 - start.timeIntervalSinceNow
+                let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                    self.sell(count: count - 1, completion: completion)
+                }
+            }
+        } else {
+            completion()
+        }
+    }
+    
+    
+    static func travelTo(path: [(dir: String, room: Int)], completion: @escaping () -> Void = { }) {
+        if path.count > 0 {
+            var p = path
+            let nextMove = p.removeFirst()
+            APIHelper.shared.travel(nextMove.dir, nextRoomID: nextMove.room) { (error, status) in
+                if let _ = error, status == nil {
+                    p.insert(nextMove, at: 0)
+                    print("ERRORRRRRRR")
+                }
+                print("Traveled to room: \(String(status?.roomID ?? 0))")
+                let cd = status?.cooldown ?? 15.0
+                let cooldown = Int(ceil(cd))
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(cooldown)) {
+                    self.travelTo(path: p, completion: completion)
+                }
+            }
+        } else {
+            completion()
         }
     }
     
@@ -252,6 +317,12 @@ class TreasureMapHelper {
         
         return bestTreasures
     }
+    
+    
+    
+    
+    
+    
 }
 
 extension TreasureMapHelper {
