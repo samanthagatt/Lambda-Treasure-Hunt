@@ -17,6 +17,7 @@
 		226CAFFD220653700095ECB6 /* AdventureStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFC220653700095ECB6 /* AdventureStatus.swift */; };
 		226CAFFF220775260095ECB6 /* TreasureMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */; };
 		226CB0012207AE5C0095ECB6 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CB0002207AE5C0095ECB6 /* UserStatus.swift */; };
+		22CA5D61220A3CA000967466 /* MapFromMyPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA5D60220A3CA000967466 /* MapFromMyPhone.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		226CAFFC220653700095ECB6 /* AdventureStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStatus.swift; sourceTree = "<group>"; };
 		226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureMapHelper.swift; sourceTree = "<group>"; };
 		226CB0002207AE5C0095ECB6 /* UserStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		22CA5D60220A3CA000967466 /* MapFromMyPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFromMyPhone.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				226CAFF222064C930095ECB6 /* APIHelper.swift */,
 				226CAFFE220775250095ECB6 /* TreasureMapHelper.swift */,
+				22CA5D60220A3CA000967466 /* MapFromMyPhone.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				226CB0012207AE5C0095ECB6 /* UserStatus.swift in Sources */,
+				22CA5D61220A3CA000967466 /* MapFromMyPhone.swift in Sources */,
 				226CAFF322064C930095ECB6 /* APIHelper.swift in Sources */,
 				226CAFFD220653700095ECB6 /* AdventureStatus.swift in Sources */,
 				226CAFFB2206509C0095ECB6 /* AuthToken.swift in Sources */,

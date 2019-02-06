@@ -1,4 +1,4 @@
-map_so_far : {"29": {"exits": {
+map_so_far = {"29": {"exits": {
     "e" : 21,
     "s" : 45,
     "w" : 49,
@@ -528,224 +528,225 @@ map_so_far : {"29": {"exits": {
     "s" : 484,
 }, "roomDescription": "It is too dark to see anything.", "roomID": 475, "coordinates": "64,48", "title": "Darkness"}, "173": {"exits": {
     "e" : 133,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 173, "coordinates": 59,52, "title": "Darkness"}, "490": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 173, "coordinates": "59,52", "title": "Darkness"}, "490": {"exits": {
     "e" : 444,
     "w" : 493,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 490, "coordinates": 51,54, "title": "Darkness"}, "260": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 490, "coordinates": "51,54", "title": "Darkness"}, "260": {"exits": {
     "w" : 167,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 260, "coordinates": 66,51, "title": "Darkness"}, "308": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 260, "coordinates": "66,51", "title": "Darkness"}, "308": {"exits": {
     "e" : 274,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 308, "coordinates": 53,51, "title": "Darkness"}, "18": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 308, "coordinates": "53,51", "title": "Darkness"}, "18": {"exits": {
     "n" : 12,
     "s" : 22,
     "w" : 25,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 18, "coordinates": 61,56, "title": "Darkness"}, "391": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 18, "coordinates": "61,56", "title": "Darkness"}, "391": {"exits": {
     "e" : 334,
     "s" : 396,
     "w" : 428,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 391, "coordinates": 54,50, "title": "Darkness"}, "262": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 391, "coordinates": "54,50", "title": "Darkness"}, "262": {"exits": {
     "e" : 358,
     "n" : 167,
     "s" : 370,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 262, "coordinates": 65,50, "title": "Darkness"}, "89": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 262, "coordinates": "65,50", "title": "Darkness"}, "89": {"exits": {
     "n" : 50,
     "s" : 93,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 89, "coordinates": 62,54, "title": "Darkness"}, "427": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 89, "coordinates": "62,54", "title": "Darkness"}, "427": {"exits": {
     "e" : 430,
     "w" : 327,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 427, "coordinates": 71,57, "title": "Darkness"}, "371": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 427, "coordinates": "71,57", "title": "Darkness"}, "371": {"exits": {
     "s" : 475,
     "w" : 307,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 371, "coordinates": 64,49, "title": "Darkness"}, "360": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 371, "coordinates": "64,49", "title": "Darkness"}, "360": {"exits": {
     "e" : 398,
     "n" : 256,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 360, "coordinates": 69,56, "title": "Darkness"}, "45": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 360, "coordinates": "69,56", "title": "Darkness"}, "45": {"exits": {
     "n" : 29,
     "s" : 60,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 45, "coordinates": 59,56, "title": "Darkness"}, "264": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 45, "coordinates": "59,56", "title": "Darkness"}, "264": {"exits": {
     "n" : 236,
     "s" : 274,
     "w" : 273,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 264, "coordinates": 54,52, "title": "Darkness"}, "352": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 264, "coordinates": "54,52", "title": "Darkness"}, "352": {"exits": {
     "e" : 485,
     "n" : 349,
     "s" : 362,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 352, "coordinates": 68,50, "title": "Darkness"}, "229": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 352, "coordinates": "68,50", "title": "Darkness"}, "229": {"exits": {
     "n" : 183,
     "s" : 250,
     "w" : 236,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 229, "coordinates": 55,53, "title": "Darkness"}, "196": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 229, "coordinates": "55,53", "title": "Darkness"}, "196": {"exits": {
     "e" : 159,
     "n" : 222,
     "w" : 197,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 196, "coordinates": 54,56, "title": "Darkness"}, "79": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 196, "coordinates": "54,56", "title": "Darkness"}, "79": {"exits": {
     "n" : 49,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 79, "coordinates": 58,56, "title": "Darkness"}, "413": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 79, "coordinates": "58,56", "title": "Darkness"}, "413": {"exits": {
     "n" : 321,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 413, "coordinates": 62,48, "title": "Darkness"}, "318": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 413, "coordinates": "62,48", "title": "Darkness"}, "318": {"exits": {
     "n" : 281,
     "s" : 487,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 318, "coordinates": 59,48, "title": "Darkness"}, "439": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 318, "coordinates": "59,48", "title": "Darkness"}, "439": {"exits": {
     "w" : 430,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 439, "coordinates": 73,57, "title": "Darkness"}, "156": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 439, "coordinates": "73,57", "title": "Darkness"}, "156": {"exits": {
     "e" : 164,
     "s" : 168,
     "w" : 141,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 156, "coordinates": 66,53, "title": "Darkness"}, "74": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 156, "coordinates": "66,53", "title": "Darkness"}, "74": {"exits": {
     "n" : 87,
     "s" : 65,
     "w" : 161,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 74, "coordinates": 57,61, "title": "Darkness"}, "437": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 74, "coordinates": "57,61", "title": "Darkness"}, "437": {"exits": {
     "e" : 420,
     "w" : 497,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 437, "coordinates": 51,55, "title": "Darkness"}, "495": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 437, "coordinates": "51,55", "title": "Darkness"}, "495": {"exits": {
     "e" : 383,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 495, "coordinates": 50,58, "title": "Darkness"}, "105": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 495, "coordinates": "50,58", "title": "Darkness"}, "105": {"exits": {
     "n" : 48,
     "w" : 202,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 105, "coordinates": 60,53, "title": "Darkness"}, "317": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 105, "coordinates": "60,53", "title": "Darkness"}, "317": {"exits": {
     "e" : 281,
     "s" : 387,
     "w" : 409,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 317, "coordinates": 58,49, "title": "Darkness"}, "293": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 317, "coordinates": "58,49", "title": "Darkness"}, "293": {"exits": {
     "n" : 243,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 293, "coordinates": 68,56, "title": "Darkness"}, "97": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 293, "coordinates": "68,56", "title": "Darkness"}, "97": {"exits": {
     "e" : 181,
     "w" : 96,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 97, "coordinates": 66,56, "title": "Darkness"}, "8": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 97, "coordinates": "66,56", "title": "Darkness"}, "8": {"exits": {
     "s" : 7,
     "w" : 16,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 8, "coordinates": 59,59, "title": "Darkness"}, "354": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 8, "coordinates": "59,59", "title": "Darkness"}, "354": {"exits": {
     "w" : 324,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 354, "coordinates": 69,52, "title": "Darkness"}, "483": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 354, "coordinates": "69,52", "title": "Darkness"}, "483": {"exits": {
     "w" : 477,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 483, "coordinates": 73,55, "title": "Darkness"}, "181": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 483, "coordinates": "73,55", "title": "Darkness"}, "181": {"exits": {
     "w" : 97,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 181, "coordinates": 67,56, "title": "Darkness"}, "16": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 181, "coordinates": "67,56", "title": "Darkness"}, "16": {"exits": {
     "e" : 8,
     "n" : 58,
     "w" : 67,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 16, "coordinates": 58,59, "title": "Darkness"}, "358": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 16, "coordinates": "58,59", "title": "Darkness"}, "358": {"exits": {
     "e" : 401,
     "w" : 262,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 358, "coordinates": 66,50, "title": "Darkness"}, "86": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 358, "coordinates": "66,50", "title": "Darkness"}, "86": {"exits": {
     "e" : 90,
     "s" : 96,
     "w" : 80,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 86, "coordinates": 65,57, "title": "Darkness"}, "477": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 86, "coordinates": "65,57", "title": "Darkness"}, "477": {"exits": {
     "e" : 483,
     "w" : 388,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 477, "coordinates": 72,55, "title": "Darkness"}, "193": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 477, "coordinates": "72,55", "title": "Darkness"}, "193": {"exits": {
     "e" : 251,
     "w" : 154,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 193, "coordinates": 67,55, "title": "Darkness"}, "297": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 193, "coordinates": "67,55", "title": "Darkness"}, "297": {"exits": {
     "w" : 230,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 297, "coordinates": 64,50, "title": "Darkness"}, "2": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 297, "coordinates": "64,50", "title": "Darkness"}, "2": {"exits": {
     "e" : 3,
     "n" : 0,
     "s" : 6,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 2, "coordinates": 60,59, "title": "Darkness"}, "465": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 2, "coordinates": "60,59", "title": "Darkness"}, "465": {"exits": {
     "e" : 498,
     "w" : 438,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 465, "coordinates": 72,56, "title": "Darkness"}, "126": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 465, "coordinates": "72,56", "title": "Darkness"}, "126": {"exits": {
     "n" : 98,
     "s" : 129,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 126, "coordinates": 57,54, "title": "Darkness"}, "166": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 126, "coordinates": "57,54", "title": "Darkness"}, "166": {"exits": {
     "e" : 150,
     "s" : 198,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 166, "coordinates": 62,52, "title": "Darkness"}, "175": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 166, "coordinates": "62,52", "title": "Darkness"}, "175": {"exits": {
     "e" : 109,
     "s" : 183,
     "w" : 179,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 175, "coordinates": 55,55, "title": "Darkness"}, "93": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 175, "coordinates": "55,55", "title": "Darkness"}, "93": {"exits": {
     "n" : 89,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 93, "coordinates": 62,53, "title": "Darkness"}, "199": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 93, "coordinates": "62,53", "title": "Darkness"}, "199": {"exits": {
     "s" : 230,
     "w" : 198,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 199, "coordinates": 63,51, "title": "Darkness"}, "226": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 199, "coordinates": "63,51", "title": "Darkness"}, "226": {"exits": {
     "e" : 214,
     "s" : 300,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 226, "coordinates": 57,52, "title": "Darkness"}, "112": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 226, "coordinates": "57,52", "title": "Darkness"}, "112": {"exits": {
     "e" : 140,
     "s" : 141,
     "w" : 100,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 112, "coordinates": 65,54, "title": "Darkness"}, "21": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 112, "coordinates": "65,54", "title": "Darkness"}, "21": {"exits": {
     "e" : 12,
     "w" : 29,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 21, "coordinates": 60,57, "title": "Darkness"}, "36": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 21, "coordinates": "60,57", "title": "Darkness"}, "36": {"exits": {
     "e" : 22,
     "s" : 48,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 36, "coordinates": 60,55, "title": "Darkness"}, "217": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 36, "coordinates": "60,55", "title": "Darkness"}, "217": {"exits": {
     "e" : 247,
     "s" : 164,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 217, "coordinates": 67,54, "title": "Darkness"}, "492": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 217, "coordinates": "67,54", "title": "Darkness"}, "492": {"exits": {
     "e" : 431,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 492, "coordinates": 56,48, "title": "Darkness"}, "171": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 492, "coordinates": "56,48", "title": "Darkness"}, "171": {"exits": {
     "e" : 61,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 171, "coordinates": 56,58, "title": "Darkness"}, "467": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 171, "coordinates": "56,58", "title": "Darkness"}, "467": {"exits": {
     "n" : 399,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 467, "coordinates": 68,47, "title": "Darkness"}, "393": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 467, "coordinates": "68,47", "title": "Darkness"}, "393": {"exits": {
     "n" : 334,
     "s" : 482,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 393, "coordinates": 55,49, "title": "Darkness"}, "137": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 393, "coordinates": "55,49", "title": "Darkness"}, "137": {"exits": {
     "w" : 118,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 137, "coordinates": 66,58, "title": "Darkness"}, "430": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 137, "coordinates": "66,58", "title": "Darkness"}, "430": {"exits": {
     "e" : 439,
     "n" : 443,
     "w" : 427,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 430, "coordinates": 72,57, "title": "Darkness"}, "7": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 430, "coordinates": "72,57", "title": "Darkness"}, "7": {"exits": {
     "e" : 6,
     "n" : 8,
     "w" : 56,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 7, "coordinates": 59,58, "title": "Darkness"}, "471": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 7, "coordinates": "59,58", "title": "Darkness"}, "471": {"exits": {
     "w" : 443,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 471, "coordinates": 73,58, "title": "Darkness"}, "398": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 471, "coordinates": "73,58", "title": "Darkness"}, "398": {"exits": {
     "e" : 438,
     "w" : 360,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 398, "coordinates": 70,56, "title": "Darkness"}, "307": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 398, "coordinates": "70,56", "title": "Darkness"}, "307": {"exits": {
     "e" : 371,
     "n" : 230,
     "s" : 373,
     "w" : 321,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 307, "coordinates": 63,49, "title": "Darkness"}, "365": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 307, "coordinates": "63,49", "title": "Darkness"}, "365": {"exits": {
     "s" : 305,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 365, "coordinates": 54,59, "title": "Darkness"}, "87": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 365, "coordinates": "54,59", "title": "Darkness"}, "87": {"exits": {
     "s" : 74,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 87, "coordinates": 57,62, "title": "Darkness"}, "164": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 87, "coordinates": "57,62", "title": "Darkness"}, "164": {"exits": {
     "e" : 298,
     "n" : 217,
     "w" : 156,
 
-}, "roomDescription": "It is too dark to see anything.", "roomID": 164, "coordinates": 67,53, "title": "Darkness"}, "295": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 164, "coordinates": "67,53", "title": "Darkness"}, "295": {"exits": {
     "s" : 272,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 295, "coordinates": 53,59, "title": "Darkness"}, "324": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 295, "coordinates": "53,59", "title": "Darkness"}, "324": {"exits": {
     "e" : 354,
     "n" : 298,
     "s" : 349,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 324, "coordinates": 68,52, "title": "Darkness"}, "377": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 324, "coordinates": "68,52", "title": "Darkness"}, "377": {"exits": {
     "n" : 300,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 377, "coordinates": 57,50, "title": "Darkness"}, "334": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 377, "coordinates": "57,50", "title": "Darkness"}, "334": {"exits": {
     "e" : 341,
     "n" : 294,
     "s" : 393,
     "w" : 391,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 334, "coordinates": 55,50, "title": "Darkness"}, "24": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 334, "coordinates": "55,50", "title": "Darkness"}, "24": {"exits": {
     "s" : 17,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 24, "coordinates": 63,59, "title": "Darkness"}, "367": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 24, "coordinates": "63,59", "title": "Darkness"}, "367": {"exits": {
     "n" : 111,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 367, "coordinates": 64,51, "title": "Darkness"}, "273": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 367, "coordinates": "64,51", "title": "Darkness"}, "273": {"exits": {
     "e" : 264,
     "n" : 343,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 273, "coordinates": 53,52, "title": "Darkness"}, "378": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 273, "coordinates": "53,52", "title": "Darkness"}, "378": {"exits": {
     "n" : 333,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 378, "coordinates": 60,47, "title": "Darkness"}, "244": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 378, "coordinates": "60,47", "title": "Darkness"}, "244": {"exits": {
     "e" : 239,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 244, "coordinates": 61,50, "title": "Darkness"}, "198": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 244, "coordinates": "61,50", "title": "Darkness"}, "198": {"exits": {
     "e" : 199,
     "n" : 166,
     "s" : 239,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 198, "coordinates": 62,51, "title": "Darkness"}, "409": {"exits": {
+}, "roomDescription": "It is too dark to see anything.", "roomID": 198, "coordinates": "62,51", "title": "Darkness"}, "409": {"exits": {
     "e" : 317,
-}, "roomDescription": "It is too dark to see anything.", "roomID": 409, "coordinates": 57,49, "title": "Darkness"}}
+}, "roomDescription": "It is too dark to see anything.", "roomID": 409, "coordinates": "57,49", "title": "Darkness"}}
 
 print(len(map_so_far))
+print(map_so_far.get("467", "Not found"))

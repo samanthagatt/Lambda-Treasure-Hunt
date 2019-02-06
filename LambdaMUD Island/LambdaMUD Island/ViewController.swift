@@ -68,31 +68,32 @@ class ViewController: UIViewController {
         
         TreasureMapHelper.shared.travel() { timeInterval in
             DispatchQueue.main.async {
-                self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 20.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
+                self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 15.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
             }
         }
     }
     
     @objc func keepTraveling() {
         let map = TreasureMapHelper.shared.getMap()
-        if map.count < 249 {
+        if map.count < 499 {
             TreasureMapHelper.shared.travel() { timeInterval in
                 DispatchQueue.main.async {
-                    self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 20.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
+                    self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 15.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
                 }
             }
-        } else if map.count == 249 {
+        } else if map.count == 499 {
             TreasureMapHelper.shared.travel() { timeInterval in
                 DispatchQueue.main.async {
-                    self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 20.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
+                    self.timer = Timer.scheduledTimer(timeInterval: timeInterval ?? 15.0, target: self, selector: #selector(self.keepTraveling), userInfo: nil, repeats: false)
                 }
             }
-        } else if map.count == 250 {
+        } else if map.count == 500 {
             print(TreasureMapHelper.shared.path)
             UserDefaults.standard.set(TreasureMapHelper.shared.path, forKey: "FINALPATH")
         } else {
             print("hello")
         }
     }
+    
 }
 

@@ -27,9 +27,9 @@ class TreasureMapHelper {
     /// Stack for reverse traversal
     var stack: [String] = []
     /// Traversal path
-    var path: [String] = ["n", "n", "n", "e", "e", "s", "e", "e", "s", "s", "e"]
+    var path: [String] = []
     /// Sequence of roomIDs
-    var backlog: [Int] = [0, 10, 19, 20, 27, 30, 31, 33, 38, 59, 104]
+    var backlog: [Int] = []
 
     
     // MARK: - Methods
@@ -159,8 +159,42 @@ class TreasureMapHelper {
         }
         return []
     }
+    
+    
+    
+    func getRandomTreasure(completion: @escaping (TimeInterval?) -> Void) {
+        
+        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
+        let currentRoomID = UserDefaults.standard.value(forKey: TreasureMapHelper.currentRoomIDKey) as? Int ?? 0
+        
+        let currentRoom = map[String(currentRoomID)] ?? map["0"]!
+        let adjacentRooms = currentRoom["exits"] as? [String: Any] ?? [:]
+    
+        guard let random = adjacentRooms.randomElement() else { return }
+        let value = random.value as? Int
+        
+        APIHelper.shared.travel(random.key, nextRoomID: value) { (_, status) in
+            guard let status = status else {
+                completion(nil)
+                return
+            }
+            
+            UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
+            
+            if status.items.count > 0 {
+                for (index, item) in status.items.enumerated() {
+                    if index != 0 {
+                        
+                    }
+                }
+            } else {
+                self.getRandomTreasure(completion: completion)
+            }
+       
+            completion(status.cooldown)
+        }
+    }
 }
-
 
 extension TreasureMapHelper {
     /// Starting map based off of personal exploration
