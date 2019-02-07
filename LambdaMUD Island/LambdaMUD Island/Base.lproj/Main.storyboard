@@ -18,38 +18,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wu8-wK-xhv">
-                                <rect key="frame" x="265.5" y="172.5" width="136" height="30"/>
-                                <state key="normal" title="Go treasure hunting"/>
-                                <connections>
-                                    <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PYa-ge-ZpR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lh5-UQ-qKe">
-                                <rect key="frame" x="83" y="96" width="81" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Travel to 22"/>
-                                <connections>
-                                    <action selector="travelBackTo0:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pow-mh-wLV"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="m5T-dC-S1i">
-                                <rect key="frame" x="431" y="0.0" width="236" height="375"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04S-GF-XM0">
+                                <rect key="frame" x="459" y="0.0" width="208" height="375"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="c05-am-ucc">
+                                        <rect key="frame" x="36" y="40" width="136" height="109"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wu8-wK-xhv">
+                                                <rect key="frame" x="0.0" y="0.0" width="136" height="30"/>
+                                                <state key="normal" title="Go treasure hunting">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PYa-ge-ZpR"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Zbb-Tn-YK2">
+                                                <rect key="frame" x="0.0" y="49" width="136" height="60"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="buT-vS-5jZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="136" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lh5-UQ-qKe">
+                                                        <rect key="frame" x="0.0" y="30" width="136" height="30"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <state key="normal" title="Travel">
+                                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="travel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pGk-3i-sV7"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="c05-am-ucc" firstAttribute="top" secondItem="04S-GF-XM0" secondAttribute="top" constant="40" id="cSo-4W-MT3"/>
+                                    <constraint firstAttribute="width" constant="208" id="st6-8Q-4pf"/>
+                                    <constraint firstItem="c05-am-ucc" firstAttribute="centerX" secondItem="04S-GF-XM0" secondAttribute="centerX" id="wah-Ee-ChI"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJo-7O-fEa">
+                                <rect key="frame" x="0.0" y="0.0" width="459" height="375"/>
+                            </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wu8-wK-xhv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fI7-ll-gmz"/>
-                            <constraint firstItem="wu8-wK-xhv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ixV-x0-JC4"/>
+                            <constraint firstItem="04S-GF-XM0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="BRu-Be-ayD"/>
+                            <constraint firstItem="04S-GF-XM0" firstAttribute="leading" secondItem="xJo-7O-fEa" secondAttribute="trailing" id="IHd-t3-A9N"/>
+                            <constraint firstAttribute="bottom" secondItem="xJo-7O-fEa" secondAttribute="bottom" id="Ljn-7R-NUp"/>
+                            <constraint firstItem="xJo-7O-fEa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="YWG-r2-wqy"/>
+                            <constraint firstItem="04S-GF-XM0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bht-tK-joc"/>
+                            <constraint firstItem="04S-GF-XM0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="g5U-48-7q4"/>
+                            <constraint firstItem="xJo-7O-fEa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="iK6-ha-E54"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="textView" destination="m5T-dC-S1i" id="a8G-Dq-l24"/>
+                        <outlet property="destinationTextField" destination="buT-vS-5jZ" id="H80-0l-4yz"/>
+                        <outlet property="scrollView" destination="xJo-7O-fEa" id="HIz-HC-Fwh"/>
+                        <outlet property="sideBarView" destination="04S-GF-XM0" id="3az-Po-uUX"/>
+                        <outlet property="travelButton" destination="lh5-UQ-qKe" id="VHe-Zg-e48"/>
                         <outlet property="treasureButton" destination="wu8-wK-xhv" id="37P-pT-9Y5"/>
                     </connections>
                 </viewController>
