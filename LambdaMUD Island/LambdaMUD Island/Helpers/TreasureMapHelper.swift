@@ -263,7 +263,7 @@ class TreasureMapHelper {
                         guard let playerStatus = playerStatus else { fatalError() }
                         inventory = playerStatus.inventory
                         print("encumbrance/strength: \(playerStatus.encumbrance)/\(playerStatus.strength)")
-                        if playerStatus.encumbrance < playerStatus.strength - 1 {
+                        if playerStatus.encumbrance < playerStatus.strength - 2 {
                             self.takeTreasure(count: count - 1, inv: inventory, completion: completion)
                         } else {
                             completion(true, inventory)
@@ -295,6 +295,18 @@ class TreasureMapHelper {
                 map[String(advStatus.roomID)]?["title"] = advStatus.title
                 map[String(advStatus.roomID)]?["roomDescription"] = advStatus.roomDescription
                 map[String(advStatus.roomID)]?["coordinates"] = advStatus.coordinates
+                map[String(advStatus.roomID)]?["elevation"] = advStatus.elevation
+                map[String(advStatus.roomID)]?["terrain"] = advStatus.terrain
+                
+                let dirs = map[String(advStatus.roomID)]?["exits"] as? [String: Int]
+                let dirsArray = dirs?.keys
+                for dir in advStatus.exits {
+                    let bool = dirsArray?.contains(dir) ?? false
+                    if !bool {
+                        print("Go explore \(dir)!")
+                    }
+                }
+                
                 UserDefaults.standard.set(map, forKey: TreasureMapHelper.mapKey)
                 
                 

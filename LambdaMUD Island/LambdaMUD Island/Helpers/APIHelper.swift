@@ -25,7 +25,7 @@ class APIHelper {
     func travel(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
         
         // MARK: URL request set up
-        let url = APIHelper.baseURL.appendingPathComponent("move/")
+        let url = APIHelper.baseURL.appendingPathComponent("fly/")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue(authToken, forHTTPHeaderField: "Authorization")

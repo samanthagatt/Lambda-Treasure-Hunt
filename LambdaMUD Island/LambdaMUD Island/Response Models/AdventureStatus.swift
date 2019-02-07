@@ -23,6 +23,8 @@ struct AdventureStatus: Decodable {
     var cooldown: Double
     var errors: [String]
     var messages: [String]
+    var terrain: String
+    var elevation: Int
     
     
     // MARK: - Keys for decoding
@@ -38,6 +40,8 @@ struct AdventureStatus: Decodable {
         case cooldown
         case errors
         case messages
+        case terrain
+        case elevation
     }
     
     
@@ -59,6 +63,8 @@ struct AdventureStatus: Decodable {
         let cooldown = try container.decode(Double.self, forKey: .cooldown)
         let errors = try container.decode([String].self, forKey: .errors)
         let messages = try container.decode([String].self, forKey: .messages)
+        let terrain = try container.decode(String.self, forKey: .terrain)
+        let elevation = try container.decode(Int.self, forKey: .elevation)
         
         self.roomID = roomID
         self.title = title
@@ -70,6 +76,8 @@ struct AdventureStatus: Decodable {
         self.cooldown = cooldown
         self.errors = errors
         self.messages = messages
+        self.terrain = terrain
+        self.elevation = elevation
     }
     
     

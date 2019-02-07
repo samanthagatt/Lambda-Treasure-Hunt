@@ -8,20 +8,41 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollView = UIScrollView()
-        let (width, height) = setUpMap()
-        scrollView.contentSize = CGSize(width: width, height: height)
-        view.addSubview(scrollView)
-        scrollView.fillSuperview()
+//        scrollView = UIScrollView()
+//        let (width, height) = setUpMap()
+//        scrollView.contentSize = CGSize(width: width, height: height)
+//        view.addSubview(scrollView)
+//        scrollView.fillSuperview()
+//        scrollView.delegate = self
+        
+//        
+//        do {
+//            let map = TreasureMapHelper.shared.getMap()
+//            let data = try JSONSerialization.data(withJSONObject: map, options: .prettyPrinted)
+//            textView.text = String(data: data, encoding: .utf8)
+//        } catch {
+//            print("error:", error)
+//        }
+        
+        
     }
     
+    @IBOutlet weak var textView: UITextView!
     
-    func setUpMap() -> (Int, Int){
+    // MARK: - UIScrollViewDelegate
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return scrollView
+//    }
+    
+    
+    
+    
+    func setUpMap() -> (Int, Int) {
         let roomSize = 60
         var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
         let map = TreasureMapHelper.shared.getMap()
@@ -97,10 +118,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func travelBackTo0(_ sender: Any) {
-        backTo0Button.isEnabled = false
         
         let currentRoom = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
-        var p = TreasureMapHelper.getPath(from: currentRoom, to: 185)
+        var p = TreasureMapHelper.getPath(from: currentRoom, to: 1)
         let nextMove = p.removeFirst()
         APIHelper.shared.travel(nextMove.dir, nextRoomID: nextMove.room) { (error, status) in
             if let _ = error, status == nil {
