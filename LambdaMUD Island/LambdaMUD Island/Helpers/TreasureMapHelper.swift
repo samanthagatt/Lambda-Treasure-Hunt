@@ -167,17 +167,22 @@ class TreasureMapHelper {
         var stack = s
         var visited = v
         
-        var map = UserDefaults.standard.value(forKey: TreasureMapHelper.mapKey) as? [String: [String: Any]] ?? TreasureMapHelper.startingMap
+        var map = TreasureMapHelper.shared.getMap()
         let currentRoomID = UserDefaults.standard.value(forKey: TreasureMapHelper.currentRoomIDKey) as? Int ?? 0
         
         let currentRoom = map[String(currentRoomID)] ?? map["0"]!
         let adjacentRooms = currentRoom["exits"] as? [String: Any] ?? [:]
         
+        var rooms: [Int] = []
         for (_, id) in adjacentRooms {
             guard let id = id as? Int else { fatalError() }
             if !visited.contains(id) {
-                stack.append(id)
+                rooms.append(id)
             }
+        }
+        rooms.shuffle()
+        for room in rooms {
+            stack.append(room)
         }
         
         if stack.count > 0 {
@@ -213,7 +218,7 @@ class TreasureMapHelper {
                                         }
                                     }
                                     self.sell(count: count) {
-                                        self.getRandomTreasure(completion: completion)
+                                        self.getRandomTreasure(s: [], v: [], completion: completion)
                                     }
                                 }
                             }
@@ -285,6 +290,14 @@ class TreasureMapHelper {
                 }
                 guard let advStatus = advStatus else { fatalError() }
                 status = advStatus
+                
+                var map = TreasureMapHelper.shared.getMap()
+                map[String(advStatus.roomID)]?["title"] = advStatus.title
+                map[String(advStatus.roomID)]?["roomDescription"] = advStatus.roomDescription
+                map[String(advStatus.roomID)]?["coordinates"] = advStatus.coordinates
+                UserDefaults.standard.set(map, forKey: TreasureMapHelper.mapKey)
+                
+                
                 UserDefaults.standard.set(advStatus.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
                 print("Traveled to room \(advStatus.roomID)")
                 let timePassed = 0 - start.timeIntervalSinceNow

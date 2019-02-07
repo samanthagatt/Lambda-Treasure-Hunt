@@ -12,9 +12,85 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        scrollView = UIScrollView()
+        let (width, height) = setUpMap()
+        scrollView.contentSize = CGSize(width: width, height: height)
+        view.addSubview(scrollView)
+        scrollView.fillSuperview()
     }
     
+    
+    func setUpMap() -> (Int, Int){
+        let roomSize = 60
+        var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
+        let map = TreasureMapHelper.shared.getMap()
+        for (_, valueDict) in map {
+            let coordsString = valueDict["coordinates"] as? String ?? "0,0"
+            let subStringArray = coordsString.split(separator: ",")
+            let coords = (x: Int(String(subStringArray[0])) ?? 0,
+                          y: Int(String(subStringArray[1])) ?? 0)
+            if coords.x > mapBounds.maxX {
+                mapBounds.maxX = coords.x
+            } else if coords.x < mapBounds.minX {
+                mapBounds.minX = coords.x
+            }
+            if coords.y > mapBounds.maxY {
+                mapBounds.maxY = coords.y
+            } else if coords.y < mapBounds.minY {
+                mapBounds.minY = coords.y
+            }
+        }
+        
+        for(_, valueDict) in map {
+            let coordsString = valueDict["coordinates"] as? String ?? "0,0"
+            let subStringArray = coordsString.split(separator: ",")
+            let coords = (x: Int(String(subStringArray[0])) ?? 0,
+                          y: Int(String(subStringArray[1])) ?? 0)
+            let exitsDict = valueDict["exits"] as? [String: Int] ?? [:]
+            let exits = exitsDict.keys
+            
+            let x = (coords.x * roomSize) - (mapBounds.minX * roomSize)
+            let y = (coords.y * roomSize) - (mapBounds.minY * roomSize)
+            let squareSize = roomSize * 3 / 4
+            let leftoverSize = roomSize / 4
+            let halfSquare = squareSize / 2
+            let corridorSize = 5
+            
+            let roomView = UIView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
+            roomView.backgroundColor = .clear
+            roomView.layer.borderWidth = CGFloat(corridorSize)
+            roomView.layer.borderColor = UIColor.lightGray.cgColor
+            roomView.layer.cornerRadius = CGFloat(squareSize / 10 + 2)
+            scrollView.addSubview(roomView)
+            
+            if exits.contains("n") {
+                let corridor = UIView(frame: CGRect(x: x + halfSquare - (corridorSize / 2), y: y + squareSize, width: corridorSize, height: leftoverSize / 2 + 1))
+                corridor.backgroundColor = .lightGray
+                scrollView.addSubview(corridor)
+            }
+            if exits.contains("s") {
+                let corridor = UIView(frame: CGRect(x: x + halfSquare - (corridorSize / 2), y: y - (leftoverSize / 2), width: corridorSize, height: leftoverSize / 2 + 1))
+                corridor.backgroundColor = .lightGray
+                scrollView.addSubview(corridor)
+            }
+            if exits.contains("e") {
+                let corridor = UIView(frame: CGRect(x: x + squareSize, y: y + halfSquare - (corridorSize / 2), width: leftoverSize / 2 + 1, height: corridorSize))
+                corridor.backgroundColor = .lightGray
+                scrollView.addSubview(corridor)
+            }
+            if exits.contains("w") {
+                let corridor = UIView(frame: CGRect(x: x - (leftoverSize / 2), y: y + halfSquare - (corridorSize / 2), width: leftoverSize / 2 + 1, height: corridorSize))
+                corridor.backgroundColor = .lightGray
+                scrollView.addSubview(corridor)
+            }
+        }
+        
+        return ((mapBounds.maxX - mapBounds.minX) * roomSize, (mapBounds.maxY - mapBounds.minY) * roomSize)
+    }
+    
+    
+    var scrollView: UIScrollView!
     
     @IBOutlet var backTo0Button: UIButton!
     @IBOutlet weak var treasureButton: UIButton!

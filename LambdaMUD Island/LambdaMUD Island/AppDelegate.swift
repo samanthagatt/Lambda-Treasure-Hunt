@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         APIHelper.shared.getInit { (error, status) in
-            let beginningTime = Date()
             if let error = error {
                 print("Error returned: \(error)")
                 return
@@ -27,13 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             UserDefaults.standard.set(status.roomID, forKey: TreasureMapHelper.currentRoomIDKey)
-            let timeSince = Date().timeIntervalSince(beginningTime)
-            let timeRemaining = status.cooldown > timeSince ? status.cooldown - timeSince : 0.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeRemaining) {
-                APIHelper.shared.getStatus() { (error, status) in
-                    
-                }
-            }
         }
         
         return true

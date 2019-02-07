@@ -18,36 +18,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="d5k-XG-owV">
-                                <rect key="frame" x="277.5" y="149.5" width="112" height="76"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP9-bk-90p">
-                                        <rect key="frame" x="0.0" y="0.0" width="109" height="30"/>
-                                        <state key="normal" title="Travel back to 0"/>
-                                        <connections>
-                                            <action selector="travelBackTo0:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mfp-3W-uY7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSw-BC-DVm">
-                                        <rect key="frame" x="0.0" y="46" width="112" height="30"/>
-                                        <state key="normal" title="Collect Treasure"/>
-                                        <connections>
-                                            <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fSB-2s-bLN"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wu8-wK-xhv">
+                                <rect key="frame" x="265.5" y="172.5" width="136" height="30"/>
+                                <state key="normal" title="Go treasure hunting"/>
+                                <connections>
+                                    <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PYa-ge-ZpR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="d5k-XG-owV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H4z-0h-pmh"/>
-                            <constraint firstItem="d5k-XG-owV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KVE-fb-eHj"/>
+                            <constraint firstItem="wu8-wK-xhv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fI7-ll-gmz"/>
+                            <constraint firstItem="wu8-wK-xhv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ixV-x0-JC4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="backTo0Button" destination="IP9-bk-90p" id="9Af-SD-dbD"/>
-                        <outlet property="treasureButton" destination="jSw-BC-DVm" id="tlZ-aa-sQi"/>
+                        <outlet property="treasureButton" destination="wu8-wK-xhv" id="37P-pT-9Y5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
