@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpButtons()
         scrollView.backgroundColor = .white
         let (width, height) = setUpMap()
         scrollView.contentSize = CGSize(width: width + 20, height: height + 20)
@@ -23,6 +24,56 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .adventureUpdate, object: nil)
     }
     
+    
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var sideBarView: UIView!
+    
+    @IBOutlet weak var goldLabel: UILabel!
+    @IBOutlet weak var cooldownLabel: UILabel!
+    @IBOutlet weak var encumbranceLabel: UILabel!
+    @IBOutlet weak var strengthLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var inventoryLabel: UILabel!
+    
+    @IBOutlet weak var roomIDTitleLabel: UILabel!
+    @IBOutlet weak var roomDescriptionLabel: UILabel!
+    @IBOutlet weak var itemsLabel: UILabel!
+    @IBOutlet weak var messagesLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
+    
+    @IBOutlet weak var northButton: UIButton!
+    @IBOutlet weak var eastButton: UIButton!
+    @IBOutlet weak var southButton: UIButton!
+    @IBOutlet weak var westButton: UIButton!
+    
+    @IBOutlet weak var takeButton: UIButton!
+    @IBOutlet weak var dropButton: UIButton!
+    @IBOutlet weak var sellButton: UIButton!
+    @IBOutlet weak var goToShopButton: UIButton!
+    @IBOutlet weak var goHuntingButton: UIButton!
+    @IBOutlet weak var travelToButton: UIButton!
+    
+    var currentRoomView: UIView!
+    var roomSize = 40
+    var squareSize: Int {
+        return roomSize * 3 / 4
+    }
+    var corridorSize = 4
+    var cornerRadius: Int {
+        return squareSize / 10 + 2
+    }
+    var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
+    
+    
+    
+    func setUpButtons() {
+        let buttons = [takeButton, dropButton, sellButton, goToShopButton, goHuntingButton, travelToButton]
+        for button in buttons {
+            button?.layer.borderColor = UIColor.black.cgColor
+            button?.layer.borderWidth = 3
+            button?.layer.cornerRadius = 4
+        }
+    }
     
     @objc func updateViews(_ notification: Notification) {
         DispatchQueue.main.async {
@@ -104,48 +155,36 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet weak var sideBarView: UIView!
-
-    @IBOutlet weak var goldLabel: UILabel!
-    @IBOutlet weak var cooldownLabel: UILabel!
-    @IBOutlet weak var encumbranceLabel: UILabel!
-    @IBOutlet weak var strengthLabel: UILabel!
-    @IBOutlet weak var speedLabel: UILabel!
-    @IBOutlet weak var inventoryLabel: UILabel!
-
-    @IBOutlet weak var roomIDTitleLabel: UILabel!
-    @IBOutlet weak var roomDescriptionLabel: UILabel!
-    @IBOutlet weak var itemsLabel: UILabel!
-    @IBOutlet weak var messagesLabel: UILabel!
-    @IBOutlet weak var errorLabel: UILabel!
-    
-    @IBOutlet weak var northButton: UIButton!
-    @IBOutlet weak var eastButton: UIButton!
-    @IBOutlet weak var southButton: UIButton!
-    @IBOutlet weak var westButton: UIButton!
-    
-    @IBOutlet weak var treasureHuntingButton: UIButton!
-    
-    var currentRoomView: UIView!
-    var roomSize = 40
-    var squareSize: Int {
-        return roomSize * 3 / 4
-    }
-    var corridorSize = 4
-    var cornerRadius: Int {
-        return squareSize / 10 + 2
-    }
-    var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
-    
-    
     @IBAction func toggleCollectTreasure(_ sender: Any) {
         if TreasureMapHelper.toggleTreasureHunting() {
-            treasureHuntingButton.setTitle("Stop treasure hunting", for: .normal)
+            goHuntingButton.setTitle("Stop hunting", for: .normal)
         } else {
-            treasureHuntingButton.setTitle("Go treasure hunting", for: .normal)
+            goHuntingButton.setTitle("Go hunting", for: .normal)
         }
     }
+    
+    @IBAction func goToShop(_ sender: Any) {
+        let path = TreasureMapHelper.getPath(to: 1)
+        TreasureMapHelper.travelTo(path: path)
+    }
+    
+    @IBAction func travelToRoom(_ sender: Any) {
+        let alert = UIAlertController(title: "Where would you like to go?", message: nil, preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        let travelAction = UIAlertAction(title: "Travel", style: .default) { (_) in
+            let textField = alert.textFields?.first
+            if let destIDString = textField?.text, destIDString.count > 0, let destID = Int(destIDString), destID >= 0, destID <= 500 {
+                let path = TreasureMapHelper.getPath(to: destID)
+                TreasureMapHelper.travelTo(path: path)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(travelAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     
     @objc func setUpCurrentRoom() {
         DispatchQueue.main.async {

@@ -51,6 +51,9 @@
                                                 <state key="normal" title="Go to shop">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="goToShop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Emx-ai-Wk9"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5j-uT-mdJ">
                                                 <rect key="frame" x="480" y="0.0" width="127" height="33"/>
@@ -69,7 +72,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gHd-eG-ByH"/>
+                                                    <action selector="travelToRoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nfs-7s-oGm"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -346,9 +349,12 @@
                     </view>
                     <connections>
                         <outlet property="cooldownLabel" destination="IHx-gV-auV" id="hx6-AD-rTp"/>
+                        <outlet property="dropButton" destination="tJC-Fl-fJ5" id="Zll-hi-G4P"/>
                         <outlet property="eastButton" destination="igd-tK-CRK" id="qxy-dd-rvQ"/>
                         <outlet property="encumbranceLabel" destination="VPe-rf-o0K" id="5GO-lI-zVg"/>
                         <outlet property="errorLabel" destination="m9r-xw-gcp" id="ugM-OM-dug"/>
+                        <outlet property="goHuntingButton" destination="M5j-uT-mdJ" id="Ub4-9c-62s"/>
+                        <outlet property="goToShopButton" destination="JCC-6F-Lmo" id="2Nj-uK-Qe9"/>
                         <outlet property="goldLabel" destination="aXV-4g-zXz" id="kSD-Hq-Eag"/>
                         <outlet property="inventoryLabel" destination="EL6-Bq-Ius" id="Lfr-4w-SCz"/>
                         <outlet property="itemsLabel" destination="zw3-WP-GbF" id="i9M-LG-agF"/>
@@ -357,11 +363,13 @@
                         <outlet property="roomDescriptionLabel" destination="rde-cH-9Fb" id="jZI-X0-bFM"/>
                         <outlet property="roomIDTitleLabel" destination="1WT-zf-uq3" id="Lcu-bh-5Zl"/>
                         <outlet property="scrollView" destination="xJo-7O-fEa" id="HIz-HC-Fwh"/>
+                        <outlet property="sellButton" destination="nFc-Cs-Bp0" id="HrL-Xj-XdH"/>
                         <outlet property="sideBarView" destination="04S-GF-XM0" id="3az-Po-uUX"/>
                         <outlet property="southButton" destination="kvd-UA-cDe" id="RsR-G6-BYK"/>
                         <outlet property="speedLabel" destination="bjg-u3-FCd" id="Npk-Zh-Nd4"/>
                         <outlet property="strengthLabel" destination="CY3-Ny-54J" id="zmS-xh-CO1"/>
-                        <outlet property="treasureHuntingButton" destination="M5j-uT-mdJ" id="S2l-2B-T8y"/>
+                        <outlet property="takeButton" destination="AmJ-de-4zv" id="u46-fH-Pua"/>
+                        <outlet property="travelToButton" destination="hi7-My-88s" id="3Aw-FY-40Z"/>
                         <outlet property="westButton" destination="K5K-Uw-m60" id="1zv-w2-23o"/>
                     </connections>
                 </viewController>
