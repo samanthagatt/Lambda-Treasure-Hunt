@@ -19,33 +19,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hl-TR-fy7" userLabel="Action Bar View">
-                                <rect key="frame" x="0.0" y="884" width="1366" height="120"/>
+                                <rect key="frame" x="0.0" y="854" width="1366" height="150"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="ps7-gw-TSe">
-                                        <rect key="frame" x="40" y="43.5" width="921" height="33"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="ps7-gw-TSe">
+                                        <rect key="frame" x="40" y="58.5" width="921" height="33"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AmJ-de-4zv">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AmJ-de-4zv">
                                                 <rect key="frame" x="0.0" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Take ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJC-Fl-fJ5">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJC-Fl-fJ5">
                                                 <rect key="frame" x="126" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Drop ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFc-Cs-Bp0">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFc-Cs-Bp0">
                                                 <rect key="frame" x="252" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Sell ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCC-6F-Lmo">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCC-6F-Lmo">
                                                 <rect key="frame" x="378" y="0.0" width="152" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Go to shop ">
@@ -55,7 +55,7 @@
                                                     <action selector="goToShop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Emx-ai-Wk9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5j-uT-mdJ">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5j-uT-mdJ">
                                                 <rect key="frame" x="580" y="0.0" width="152" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Go hunting ">
@@ -65,7 +65,7 @@
                                                     <action selector="toggleCollectTreasure:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4VP-rx-boc"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hi7-My-88s">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hi7-My-88s">
                                                 <rect key="frame" x="782" y="0.0" width="139" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
                                                 <state key="normal" title=" Travel to ">
@@ -77,25 +77,88 @@
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="239" verticalHuggingPriority="247" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vid-Mp-V2N" userLabel="moveDirections">
+                                        <rect key="frame" x="1103.5" y="25" width="125" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5K-Uw-m60" userLabel="westButton">
+                                                <rect key="frame" x="0.0" y="37.5" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="UbO-IE-Iyp"/>
+                                                    <constraint firstAttribute="height" constant="25" id="cJw-rT-6l7"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="west"/>
+                                                <connections>
+                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dpG-wv-ovq"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="HkC-Iv-ORp">
+                                                <rect key="frame" x="50" y="0.0" width="25" height="100"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-Xa-fuh" userLabel="northButton">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="6Ll-Mg-eUk"/>
+                                                            <constraint firstAttribute="width" constant="25" id="bTp-vv-pVh"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="north"/>
+                                                        <connections>
+                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k9B-2f-kgn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvd-UA-cDe" userLabel="southButton">
+                                                        <rect key="frame" x="0.0" y="75" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="IXS-O8-eFu"/>
+                                                            <constraint firstAttribute="width" constant="25" id="Igr-aL-F6e"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="south"/>
+                                                        <connections>
+                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JrB-Ia-pdU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igd-tK-CRK" userLabel="eastButton">
+                                                <rect key="frame" x="100" y="37.5" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="BHX-g3-0Sc"/>
+                                                    <constraint firstAttribute="height" constant="25" id="tLC-gh-ZLZ"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="east"/>
+                                                <connections>
+                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j5C-OD-lw7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="T1E-p5-Hue"/>
+                                            <constraint firstAttribute="width" constant="125" id="hoG-Vz-YFd"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="ps7-gw-TSe" firstAttribute="centerY" secondItem="3hl-TR-fy7" secondAttribute="centerY" id="8BW-2Z-Ljp"/>
-                                    <constraint firstItem="ps7-gw-TSe" firstAttribute="leading" secondItem="3hl-TR-fy7" secondAttribute="leading" constant="40" id="FAc-py-bWc"/>
-                                    <constraint firstAttribute="height" constant="120" id="aut-SD-mr1"/>
+                                    <constraint firstItem="vid-Mp-V2N" firstAttribute="centerY" secondItem="3hl-TR-fy7" secondAttribute="centerY" id="Mmk-yz-mpG"/>
+                                    <constraint firstItem="ps7-gw-TSe" firstAttribute="centerY" secondItem="3hl-TR-fy7" secondAttribute="centerY" id="U4o-2P-gj9"/>
+                                    <constraint firstAttribute="height" constant="150" id="aut-SD-mr1"/>
+                                    <constraint firstItem="ps7-gw-TSe" firstAttribute="leading" secondItem="3hl-TR-fy7" secondAttribute="leading" constant="40" id="gNp-N1-BlG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04S-GF-XM0">
-                                <rect key="frame" x="966" y="24" width="400" height="860"/>
+                                <rect key="frame" x="966" y="24" width="400" height="830"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="0kM-C3-9H0">
-                                        <rect key="frame" x="40" y="40" width="320" height="780"/>
+                                        <rect key="frame" x="40" y="40" width="320" height="750"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="254" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="pJB-F5-jqS">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-CA-hRm" userLabel="user stats">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-CA-hRm" userLabel="user stats">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="237"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="drW-YV-TRf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
@@ -187,18 +250,18 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="246" horizontalCompressionResistancePriority="754" verticalCompressionResistancePriority="755" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UCa-Cn-ZYl">
-                                                                <rect key="frame" x="0.0" y="180" width="320" height="28"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="259" horizontalCompressionResistancePriority="754" verticalCompressionResistancePriority="755" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UCa-Cn-ZYl">
+                                                                <rect key="frame" x="0.0" y="180" width="320" height="57"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inventory" translatesAutoresizingMaskIntoConstraints="NO" id="c7b-yZ-3ce">
                                                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="28" id="UW0-lV-yWW"/>
-                                                                            <constraint firstAttribute="width" constant="28" id="nEs-Qj-xtr"/>
+                                                                            <constraint firstAttribute="width" constant="28" id="NaA-9N-AhB"/>
+                                                                            <constraint firstAttribute="height" constant="28" id="bE7-0Q-XmZ"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="242" horizontalCompressionResistancePriority="759" text="amazing treasure, sparkling treasure" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EL6-Bq-Ius">
-                                                                        <rect key="frame" x="48" y="0.0" width="272" height="28"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="247" verticalHuggingPriority="242" horizontalCompressionResistancePriority="759" text="amazing treasure, sparkling treasure, special" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EL6-Bq-Ius">
+                                                                        <rect key="frame" x="48" y="0.0" width="272" height="57"/>
                                                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -209,8 +272,8 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="247" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-KM-Odf">
-                                                <rect key="frame" x="0.0" y="258" width="320" height="314"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="244" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-KM-Odf">
+                                                <rect key="frame" x="0.0" y="287" width="320" height="463"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Room 0 - Darkness" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WT-zf-uq3">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="19"/>
@@ -218,95 +281,37 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="The room is too dark to see" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rde-cH-9Fb">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOUNTAIN: 6km" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDV-7E-Yc7">
                                                         <rect key="frame" x="0.0" y="39" width="320" height="19"/>
                                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="The room is too dark to see" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rde-cH-9Fb">
+                                                        <rect key="frame" x="0.0" y="78" width="320" height="19"/>
+                                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="small treasure, amzing treasure" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zw3-WP-GbF">
-                                                        <rect key="frame" x="0.0" y="78" width="320" height="38"/>
+                                                        <rect key="frame" x="0.0" y="117" width="320" height="38"/>
                                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="You flew south" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktL-XD-End">
-                                                        <rect key="frame" x="0.0" y="136" width="320" height="19"/>
+                                                        <rect key="frame" x="0.0" y="175" width="320" height="19"/>
                                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9r-xw-gcp">
-                                                        <rect key="frame" x="0.0" y="175" width="320" height="139"/>
+                                                        <rect key="frame" x="0.0" y="214" width="320" height="249"/>
                                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="c05-am-ucc" userLabel="Arrow buttons">
-                                                <rect key="frame" x="0.0" y="622" width="320" height="158"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ra9-Xa-fuh" userLabel="northButton">
-                                                        <rect key="frame" x="140" y="0.0" width="40" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="6Ll-Mg-eUk"/>
-                                                            <constraint firstAttribute="width" constant="40" id="bTp-vv-pVh"/>
-                                                        </constraints>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="north"/>
-                                                        <connections>
-                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k9B-2f-kgn"/>
-                                                        </connections>
-                                                    </button>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="D5U-Ro-mJO">
-                                                        <rect key="frame" x="60" y="59" width="200" height="40"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5K-Uw-m60" userLabel="westButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="40" id="UbO-IE-Iyp"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="cJw-rT-6l7"/>
-                                                                </constraints>
-                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" image="west"/>
-                                                                <connections>
-                                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dpG-wv-ovq"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igd-tK-CRK" userLabel="eastButton">
-                                                                <rect key="frame" x="160" y="0.0" width="40" height="40"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="40" id="BHX-g3-0Sc"/>
-                                                                    <constraint firstAttribute="height" constant="40" id="tLC-gh-ZLZ"/>
-                                                                </constraints>
-                                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" image="east"/>
-                                                                <connections>
-                                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j5C-OD-lw7"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="200" id="yn0-TT-xRg"/>
-                                                        </constraints>
-                                                    </stackView>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvd-UA-cDe" userLabel="southButton">
-                                                        <rect key="frame" x="140" y="118" width="40" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="IXS-O8-eFu"/>
-                                                            <constraint firstAttribute="width" constant="40" id="Igr-aL-F6e"/>
-                                                        </constraints>
-                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="south"/>
-                                                        <connections>
-                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JrB-Ia-pdU"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="ra9-Xa-fuh" firstAttribute="top" secondItem="c05-am-ucc" secondAttribute="top" id="L1f-wG-hfa"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                     </stackView>
@@ -321,17 +326,17 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJo-7O-fEa">
-                                <rect key="frame" x="0.0" y="0.0" width="964" height="882"/>
+                                <rect key="frame" x="0.0" y="0.0" width="964" height="852"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZs-H8-UaR" userLabel="bottom border">
-                                <rect key="frame" x="0.0" y="882" width="1366" height="2"/>
+                                <rect key="frame" x="0.0" y="852" width="1366" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="8qJ-lo-QgR"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDc-Pm-9oU" userLabel="side border">
-                                <rect key="frame" x="964" y="0.0" width="2" height="884"/>
+                                <rect key="frame" x="964" y="0.0" width="2" height="854"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="B6a-oJ-Ars"/>
@@ -356,6 +361,7 @@
                             <constraint firstItem="gZs-H8-UaR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mhv-kK-jOl"/>
                             <constraint firstItem="04S-GF-XM0" firstAttribute="leading" secondItem="jDc-Pm-9oU" secondAttribute="trailing" id="oMU-Wt-LT8"/>
                             <constraint firstItem="3hl-TR-fy7" firstAttribute="top" secondItem="jDc-Pm-9oU" secondAttribute="bottom" id="ryi-GK-Ene"/>
+                            <constraint firstItem="vid-Mp-V2N" firstAttribute="centerX" secondItem="04S-GF-XM0" secondAttribute="centerX" id="wKb-o2-VaX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -381,6 +387,7 @@
                         <outlet property="speedLabel" destination="bjg-u3-FCd" id="Npk-Zh-Nd4"/>
                         <outlet property="strengthLabel" destination="CY3-Ny-54J" id="zmS-xh-CO1"/>
                         <outlet property="takeButton" destination="AmJ-de-4zv" id="u46-fH-Pua"/>
+                        <outlet property="terrainElevLabel" destination="TDV-7E-Yc7" id="l6m-ic-LHq"/>
                         <outlet property="travelToButton" destination="hi7-My-88s" id="3Aw-FY-40Z"/>
                         <outlet property="westButton" destination="K5K-Uw-m60" id="1zv-w2-23o"/>
                     </connections>

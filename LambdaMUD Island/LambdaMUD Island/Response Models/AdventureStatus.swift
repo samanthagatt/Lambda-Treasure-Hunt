@@ -92,7 +92,9 @@ struct AdventureStatus: Decodable {
             "exits": self.exits,
             "cooldown": self.cooldown,
             "errors": self.errors,
-            "messages": self.messages
+            "messages": self.messages,
+            "terrain": self.terrain,
+            "elevation": self.elevation
         ]
     }
 }

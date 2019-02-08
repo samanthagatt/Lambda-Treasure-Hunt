@@ -12,6 +12,7 @@ import UIKit
 extension Notification.Name {
     static let userUpdate = Notification.Name("statusUpdate")
     static let adventureUpdate = Notification.Name("adventureUpdate")
+    static let initialStatusDone = Notification.Name("initialStatusDone")
 }
 
 // MARK: - ViewController
@@ -33,6 +34,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(setUpCurrentRoom), name: UserDefaults.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .userUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .adventureUpdate, object: nil)
+        
     }
     
     
@@ -47,6 +49,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var inventoryLabel: UILabel!
     
     @IBOutlet weak var roomIDTitleLabel: UILabel!
+    @IBOutlet weak var terrainElevLabel: UILabel!
     @IBOutlet weak var roomDescriptionLabel: UILabel!
     @IBOutlet weak var itemsLabel: UILabel!
     @IBOutlet weak var messagesLabel: UILabel!
@@ -72,7 +75,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     var currentRoomView: UIView!
-    var roomSize = 40
+    var roomSize = 80
     var squareSize: Int {
         return roomSize * 3 / 4
     }
@@ -81,6 +84,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         return squareSize / 10 + 2
     }
     var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
+    
+    var isTraveling = false
     
     
     
@@ -126,7 +131,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             if let inventory = dict["inventory"] as? [Any] {
                 var text = ""
                 for item in inventory {
-                    text += "\(item), "
+                    text += "\(item),\n"
                 }
                 if text.count > 1 {
                     text.removeLast()
@@ -143,15 +148,25 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             } else if let title = dict["title"] {
                 self.roomIDTitleLabel.text = "\(title)"
             }
+            if let terrain = dict["terrain"] {
+                var text = "\(terrain): "
+                if let elevation = dict["elevation"] {
+                    text += "\(elevation)km"
+                } else {
+                    text.removeLast()
+                    text.removeLast()
+                }
+                self.terrainElevLabel.text = text
+            }
             if let roomDescription = dict["roomDescription"] {
                 self.roomDescriptionLabel.text = "\(roomDescription)"
             }
             if let items = dict["items"] as? [Any] {
-                var text = ""
+                var text = items.count > 0 ? "Items: " : ""
                 for item in items {
-                    text += "\(item), "
+                    text += "\(item),\n"
                 }
-                if text.count > 1 {
+                if text.count > 0 {
                     text.removeLast()
                     text.removeLast()
                 }
@@ -160,7 +175,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             if let errors = dict["errors"] as? [Any] {
                 var text = ""
                 for error in errors {
-                    text += "\(error), "
+                    text += "\(error),\n"
                 }
                 if text.count > 1 {
                     text.removeLast()
@@ -171,12 +186,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             if let messages = dict["messages"] as? [Any], messages.count > 0 {
                 var text = ""
                 for message in messages {
-                    text += "\(message) "
+                    text += "\(message)\n"
                 }
                 if text.count > 1 {
                     text.removeLast()
                 }
                 self.messagesLabel.text = text
+            }
+            
+            if self.isTraveling {
+                
             }
         }
     }
@@ -194,22 +213,22 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             for button in dirButtons {
                 button.isEnabled = false
             }
+            isTraveling = true
         } else {
+            isTraveling = false
             goHuntingButton.setTitle(" Go hunting ", for: .normal)
             updateButtons()
         }
     }
     
     @IBAction func goToShop(_ sender: Any) {
-        for button in buttons {
-            if button != goToShopButton {
-                button.isEnabled = false
-            }
-        }
+        isTraveling = true
+        updateButtons()
         let path = TreasureMapHelper.getPath(to: 1)
         TreasureMapHelper.travelTo(path: path) { status in
             guard let status = status else { self.updateButtons(); return }
             DispatchQueue.main.asyncAfter(deadline: .now() + status.cooldown) {
+                self.isTraveling = false
                 self.updateButtons()
             }
         }
@@ -221,8 +240,19 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let travelAction = UIAlertAction(title: "Travel", style: .default) { (_) in
             let textField = alert.textFields?.first
             if let destIDString = textField?.text, destIDString.count > 0, let destID = Int(destIDString), destID >= 0, destID <= 500 {
+                self.isTraveling = true
+                
                 let path = TreasureMapHelper.getPath(to: destID)
-                TreasureMapHelper.travelTo(path: path)
+                TreasureMapHelper.travelTo(path: path) { status in
+                    var cooldown = 0.0
+                    if let status = status {
+                        cooldown = status.cooldown
+                    }
+                    self.isTraveling = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + cooldown) {
+                        self.updateButtons()
+                    }
+                }
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -311,15 +341,48 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let subStringArray = coordsString.split(separator: ",")
             let coords = (x: Int(String(subStringArray[0])) ?? 0,
                           y: Int(String(subStringArray[1])) ?? 0)
+            let terrain = map[String(currentRoom)]?["terrain"]
+            let color = self.getRoomColor(terrain)
             let x = (coords.x * self.roomSize) - (self.mapBounds.minX * self.roomSize) + 10
             let y = (coords.y * self.roomSize) - (self.mapBounds.minY * self.roomSize) + 10
             self.currentRoomView = UIView(frame: CGRect(x: x, y: y, width: self.squareSize, height: self.squareSize))
-            self.currentRoomView.backgroundColor = UIColor(red:0.56, green:0.93, blue:0.56, alpha:1.0)
+            self.currentRoomView.backgroundColor = .currentYellow
             self.currentRoomView.layer.borderWidth = CGFloat(self.corridorSize)
-            self.currentRoomView.layer.borderColor = UIColor.lightGray.cgColor
+            self.currentRoomView.layer.borderColor = color.cgColor
             self.currentRoomView.layer.cornerRadius = CGFloat(self.cornerRadius)
+            
+            let label = UILabel(frame: self.currentRoomView.frame)
+            label.text = "\(currentRoom)"
+            label.textAlignment = .center
+            label.textColor = .darkGray
+            self.currentRoomView.addSubview(label)
+            
             self.scrollView.addSubview(self.currentRoomView)
+            if currentRoom == 1 {
+                self.sellButton.isEnabled = true
+            } else {
+                self.sellButton.isEnabled = false
+            }
         }
+    }
+    
+    func getRoomColor(_ terrain: Any?) -> UIColor {
+        let color: UIColor
+        if let terrain = terrain as? String {
+            if terrain == "NORMAL" {
+                color = .grassGreen
+            } else if terrain == "MOUNTAIN" || terrain == "CAVE" {
+                color = .dirtBrown
+            } else if terrain == "TRAP" {
+                color = .red
+            }
+            else {
+                color = .randomBlue
+            }
+        } else {
+            color = .lightGray
+        }
+        return color
     }
     
     func setUpMap() -> (Int, Int) {
@@ -348,6 +411,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                           y: Int(String(subStringArray[1])) ?? 0)
             let exitsDict = valueDict["exits"] as? [String: Int] ?? [:]
             let exits = exitsDict.keys
+            let id = valueDict["roomID"]
+            
+            let terrain = valueDict["terrain"]
+            let color = getRoomColor(terrain)
             
             let x = (coords.x * roomSize) - (mapBounds.minX * roomSize) + 10
             let y = (coords.y * roomSize) - (mapBounds.minY * roomSize) + 10
@@ -357,33 +424,46 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             let roomView = UIView(frame: CGRect(x: x, y: y, width: squareSize, height: squareSize))
             roomView.backgroundColor = .clear
             roomView.layer.borderWidth = CGFloat(corridorSize)
-            roomView.layer.borderColor = UIColor.lightGray.cgColor
+            roomView.layer.borderColor = color.cgColor
             roomView.layer.cornerRadius = CGFloat(cornerRadius)
             scrollView.addSubview(roomView)
             
             if exits.contains("n") {
                 let corridor = UIView(frame: CGRect(x: x + halfSquare - (corridorSize / 2), y: y + squareSize, width: corridorSize, height: leftoverSize / 2 + 2))
-                corridor.backgroundColor = .lightGray
+                corridor.backgroundColor = color
                 scrollView.addSubview(corridor)
             }
             if exits.contains("s") {
                 let corridor = UIView(frame: CGRect(x: x + halfSquare - (corridorSize / 2), y: y - (leftoverSize / 2), width: corridorSize, height: leftoverSize / 2 + 2))
-                corridor.backgroundColor = .lightGray
+                corridor.backgroundColor = color
                 scrollView.addSubview(corridor)
             }
             if exits.contains("e") {
                 let corridor = UIView(frame: CGRect(x: x + squareSize, y: y + halfSquare - (corridorSize / 2), width: leftoverSize / 2 + 2, height: corridorSize))
-                corridor.backgroundColor = .lightGray
+                corridor.backgroundColor = color
                 scrollView.addSubview(corridor)
             }
             if exits.contains("w") {
                 let corridor = UIView(frame: CGRect(x: x - (leftoverSize / 2), y: y + halfSquare - (corridorSize / 2), width: leftoverSize / 2 + 2, height: corridorSize))
-                corridor.backgroundColor = .lightGray
+                corridor.backgroundColor = color
                 scrollView.addSubview(corridor)
             }
+            let label = UILabel(frame: roomView.frame)
+            label.text = "\(id ?? "")"
+            label.textAlignment = .center
+            label.textColor = .darkGray
+            scrollView.addSubview(label)
         }
         
         return ((mapBounds.maxX - mapBounds.minX) * roomSize, (mapBounds.maxY - mapBounds.minY) * roomSize)
     }
+}
+
+
+extension UIColor {
+    static let grassGreen = UIColor(red:0.38, green:0.50, blue:0.22, alpha:1.0)
+    static let dirtBrown = UIColor(red:0.34, green:0.23, blue:0.05, alpha:1.0)
+    static let randomBlue = UIColor(red:0.18, green:0.53, blue:0.60, alpha:1.0)
+    static let currentYellow = UIColor(red:0.99, green:0.72, blue:0.07, alpha:1.0)
 }
 

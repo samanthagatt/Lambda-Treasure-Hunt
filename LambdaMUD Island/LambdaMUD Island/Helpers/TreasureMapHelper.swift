@@ -20,6 +20,8 @@ class TreasureMapHelper {
     /// Dict of opposite cardinal directions
     static let oppositeDir = ["n": "s", "s": "n", "e": "w", "w": "e"]
     
+    static var isEncumbered = false
+
     private static var shouldTreasureHunt = false {
         didSet {
             if shouldTreasureHunt {
@@ -185,17 +187,57 @@ class TreasureMapHelper {
         }
     }
     
+    static func travelMultiple(_ rooms: [Int]) {
+        
+    }
     
     static func travelTo(path: [(dir: String, room: Int)], s: AdventureStatus? = nil, isTreasureHunting: Bool = false, completion: @escaping (AdventureStatus?) -> Void = { _ in }) {
         if !isTreasureHunting || TreasureMapHelper.shouldTreasureHunt {
             var status = s
             if path.count > 0 {
                 var p = path
-                let nextMove = p.removeFirst()
-                APIHelper.shared.fly(nextMove.dir, nextRoomID: nextMove.room) { (error, advStatus) in
+                
+                var minElev = Int.max
+                
+                let dashDir = path[0].dir
+                var dashRooms: [Int] = []
+                // want to dash or walk (not fly)
+                var hasCaves = false
+                // don't want to dash, want to fly unless encumbered
+                var isUpHill = false
+                
+                for room in path {
+                    let roomDict = TreasureMapHelper.getMap()[String(room.room)]
+                    if room.dir == dashDir && !isEncumbered {
+                        if roomDict?["terrain"] as? String == "CAVE" {
+                            hasCaves = true
+                        }
+                        if dashRooms.count > 0 {
+                            if roomDict?["elevation"] as? Int ?? 1 > minElev {
+                                isUpHill = true
+                            }
+                        }
+                        dashRooms.append(room.room)
+                        minElev = roomDict?["elevation"] as? Int ?? Int.max
+                    } else if isEncumbered && dashRooms.count == 0 {
+                        dashRooms.append(room.room)
+                        break
+                    } else {
+                        break
+                    }
+                }
+                
+                var nextMoves: [(dir: String, room: Int)] = []
+                for _ in dashRooms {
+                    nextMoves.append(p.removeFirst())
+                }
+                
+                let internalCompletion: (Error?, AdventureStatus?) -> Void = { (error, advStatus) in
                     let start = Date()
                     if let _ = error, status == nil {
-                        p.insert(nextMove, at: 0)
+                        for move in nextMoves {
+                            p.insert(move, at: 0)
+                        }
                         print("ERRORRRRRRR")
                     }
                     guard let advStatus = advStatus else { fatalError() }
@@ -226,6 +268,29 @@ class TreasureMapHelper {
                     let waitTime = advStatus.cooldown > timePassed ? advStatus.cooldown - timePassed : 0.0
                     DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
                         self.travelTo(path: p, s: status, isTreasureHunting: isTreasureHunting, completion: completion)
+                    }
+                }
+                
+                // always walk if encumbered (unless a trap but we'll get to that later)
+                if isEncumbered {
+                    APIHelper.shared.walk(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
+                } else {
+                    // always dash if more than one (unless encumbered - above, or isUpHill)
+                    if dashRooms.count > 1 && !isUpHill {
+                        let numRooms = dashRooms.count
+                        // could use reduce if I took a little while longer
+                        var nextRoomIDs: String = ""
+                        for room in dashRooms {
+                            nextRoomIDs += String(room) + ","
+                        }
+                        nextRoomIDs.removeLast()
+                        APIHelper.shared.dash(dashDir, numRooms: numRooms, nextRoomIDs: nextRoomIDs, completion: internalCompletion)
+                    // if there's only one but there isn't caves we want to fly (don't care if it's uphill or downhill)
+                    } else if !hasCaves {
+                        APIHelper.shared.fly(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
+                    // we're in a cave so walk
+                    } else {
+                        APIHelper.shared.walk(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
                     }
                 }
             } else {

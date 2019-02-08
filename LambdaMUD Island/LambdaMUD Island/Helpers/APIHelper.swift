@@ -19,9 +19,62 @@ class APIHelper {
     private static let baseURL = URL(string: "https://lambda-treasure-hunt.herokuapp.com/api/adv/")!
     
     
-    // MARK: - Network requestss
+    // MARK: - Network requests
     
-    /// Attempts to travel in a specified direction
+    /// Attempts to walk in a specified direction
+    func walk(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
+        
+        // MARK: URL request set up
+        let url = APIHelper.baseURL.appendingPathComponent("move/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        var bodyDict = ["direction": dir]
+        if let nextRoomID = nextRoomID {
+            bodyDict["next_room_id"] = "\(nextRoomID)"
+        }
+        
+        // MARK: Body json encoding
+        do {
+            let bodyData = try JSONEncoder().encode(bodyDict)
+            request.httpBody = bodyData
+        } catch {
+            NSLog("Error encoding body data: \(error)")
+            completion(error, nil)
+            return
+        }
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to travel: \(error)")
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("An error occurred trying to travel: No data was returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            // MARK: Data decoding
+            do {
+                let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
+                completion(nil, adventureStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to travel: \(error)")
+                completion(error, nil)
+                return
+            }
+            }.resume()
+    }
+    
+    /// Attempts to fly in a specified direction
     func fly(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
         
         // MARK: URL request set up
@@ -74,6 +127,57 @@ class APIHelper {
         }.resume()
     }
     
+    func dash(_ dir: String, numRooms: Int, nextRoomIDs: String, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
+        
+        // MARK: URL request set up
+        let url = APIHelper.baseURL.appendingPathComponent("dash/")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue(authToken, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyDict = ["direction": dir, "num_rooms": String(numRooms), "next_room_ids": nextRoomIDs]
+        
+        // MARK: Body json encoding
+        do {
+            let bodyData = try JSONEncoder().encode(bodyDict)
+            request.httpBody = bodyData
+        } catch {
+            NSLog("Error encoding body data: \(error)")
+            completion(error, nil)
+            return
+        }
+        
+        // MARK: Network request
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            // MARK: Error handling
+            if let error = error {
+                NSLog("An error occurred trying to travel: \(error)")
+                completion(error, nil)
+                return
+            }
+            guard let data = data else {
+                NSLog("An error occurred trying to travel: No data was returned")
+                completion(NSError(), nil)
+                return
+            }
+            
+            // MARK: Data decoding
+            do {
+                let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
+                completion(nil, adventureStatus)
+                return
+            } catch {
+                NSLog("An error occurred trying to travel: \(error)")
+                completion(error, nil)
+                return
+            }
+        }.resume()
+    }
+    
+    
+    
     /// Checks user status
     func getStatus(completion: @escaping (_ error: Error?, _ status: UserStatus?) -> Void) {
         
@@ -102,6 +206,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let userStatus = try JSONDecoder().decode(UserStatus.self, from: data)
+                TreasureMapHelper.isEncumbered = userStatus.encumbrance >= userStatus.strength ? true : false
                 NotificationCenter.default.post(name: .userUpdate, object: nil, userInfo: userStatus.asDictionary())
                 completion(nil, userStatus)
                 return

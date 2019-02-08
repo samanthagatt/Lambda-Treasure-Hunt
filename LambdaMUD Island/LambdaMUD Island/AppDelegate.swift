@@ -30,7 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let timeSince = 0 - start.timeIntervalSinceNow
             let timeLeft = status.cooldown - timeSince
             DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft, execute: {
-                APIHelper.shared.getStatus(completion: { _, _ in })
+                APIHelper.shared.getStatus() { _, _ in
+                    NotificationCenter.default.post(name: .initialStatusDone, object: nil)
+                }
             })
         }
         return true
