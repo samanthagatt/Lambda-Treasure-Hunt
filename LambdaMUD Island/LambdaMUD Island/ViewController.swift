@@ -19,8 +19,47 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         setUpCurrentRoom()
         NotificationCenter.default.addObserver(self, selector: #selector(setUpCurrentRoom), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateText(_:)), name: .userUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateText(_:)), name: .adventureUpdate, object: nil)
     }
     
+    
+    @objc func updateText(_ notification: Notification) {
+        
+    }
+    
+    
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var sideBarView: UIView!
+    @IBOutlet weak var treasureButton: UIButton!
+    @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet var travelButton: UIButton!
+    
+    var currentRoomView: UIView!
+    var roomSize = 60
+    var squareSize: Int {
+        return roomSize * 3 / 4
+    }
+    var corridorSize = 6
+    var cornerRadius: Int {
+        return squareSize / 10 + 2
+    }
+    var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
+    
+    
+    @IBAction func toggleCollectTreasure(_ sender: Any) {
+        TreasureMapHelper.shared.getRandomTreasure() { (_, _) in }
+    }
+    
+    @IBAction func travel(_ sender: Any) {
+        guard let destString = destinationTextField.text,
+            let dest = Int(destString) else {
+            return
+        }
+        let path = TreasureMapHelper.getPath(to: dest)
+        TreasureMapHelper.travelTo(path: path)
+        travelButton.isEnabled = false
+    }
     
     @objc func setUpCurrentRoom() {
         DispatchQueue.main.async {
@@ -41,7 +80,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             self.scrollView.addSubview(self.currentRoomView)
         }
     }
-    
     
     func setUpMap() -> (Int, Int) {
         let map = TreasureMapHelper.shared.getMap()
@@ -105,39 +143,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         }
         
         return ((mapBounds.maxX - mapBounds.minX) * roomSize, (mapBounds.maxY - mapBounds.minY) * roomSize)
-    }
-    
-    
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet weak var sideBarView: UIView!
-    @IBOutlet weak var treasureButton: UIButton!
-    @IBOutlet weak var destinationTextField: UITextField!
-    @IBOutlet var travelButton: UIButton!
-    
-    var currentRoomView: UIView!
-    var roomSize = 60
-    var squareSize: Int {
-        return roomSize * 3 / 4
-    }
-    var corridorSize = 6
-    var cornerRadius: Int {
-        return squareSize / 10 + 2
-    }
-    var mapBounds: (minX: Int, minY: Int, maxX: Int, maxY: Int) = (Int.max, Int.max, Int.min, Int.min)
-    
-    
-    @IBAction func toggleCollectTreasure(_ sender: Any) {
-        TreasureMapHelper.shared.getRandomTreasure() { (_, _) in }
-    }
-    
-    @IBAction func travel(_ sender: Any) {
-        guard let destString = destinationTextField.text,
-            let dest = Int(destString) else {
-            return
-        }
-        let path = TreasureMapHelper.getPath(to: dest)
-        TreasureMapHelper.travelTo(path: path)
-        travelButton.isEnabled = false
     }
 }
 

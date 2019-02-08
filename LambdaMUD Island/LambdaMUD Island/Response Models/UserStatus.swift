@@ -21,4 +21,19 @@ struct UserStatus: Decodable {
     let status: [String]
     let errors: [String]
     let messages: [String]
+    
+    func asDictionary() -> [String: Any] {
+        return [
+            "name": self.name,
+            "cooldown": self.cooldown,
+            "encumbrance": self.encumbrance,
+            "strength": self.strength,
+            "speed": self.speed,
+            "gold": self.gold,
+            "inventory": self.inventory,
+            "status": self.status,
+            "errors": self.errors,
+            "messages": self.messages
+        ]
+    }
 }

@@ -8,6 +8,14 @@
 
 import Foundation
 
+// MARK: - Notification names
+extension Notification.Name {
+    static let userUpdate = Notification.Name("statusUpdate")
+    static let adventureUpdate = Notification.Name("adventureUpdate")
+}
+
+
+// MARK: - API helper class
 class APIHelper {
     
     // MARK: - Properties
@@ -63,6 +71,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
                 completion(nil, adventureStatus)
                 return
             } catch {
@@ -101,6 +110,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let userStatus = try JSONDecoder().decode(UserStatus.self, from: data)
+                NotificationCenter.default.post(name: .userUpdate, object: userStatus.asDictionary())
                 completion(nil, userStatus)
                 return
             } catch {
@@ -154,6 +164,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
                 completion(nil, adventureStatus)
                 return
             } catch {
@@ -206,6 +217,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
                 completion(nil, adventureStatus)
                 return
             } catch {
@@ -241,6 +253,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let adventureStatus = try JSONDecoder().decode(AdventureStatus.self, from: data)
+                NotificationCenter.default.post(name: .adventureUpdate, object: nil, userInfo: adventureStatus.asDictionary())
                 completion(nil, adventureStatus)
                 return
             } catch {

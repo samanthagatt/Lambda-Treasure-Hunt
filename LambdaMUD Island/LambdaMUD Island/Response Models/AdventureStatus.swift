@@ -81,20 +81,18 @@ struct AdventureStatus: Decodable {
     }
     
     
-    // MARK: - Example JSON
-    
-    /*
-     json = {
-         "room_id": 10,
-         "title": "Room 10",
-         "description": "You are standing in an empty room.",
-         "coordinates": "(60,61)",
-         "players": [],
-         "items": [],
-         "exits": ["n", "s", "w"],
-         "cooldown": 60.0,
-         "errors": [],
-         "messages": ["You have walked north."]
-     }
-     */
+    func asDictionary() -> [String: Any] {
+        return [
+            "roomID": self.roomID,
+            "title": self.title,
+            "roomDescription": self.roomDescription,
+            "coordinates": self.coordinates,
+            "players": self.players,
+            "items": self.items,
+            "exits": self.exits,
+            "cooldown": self.cooldown,
+            "errors": self.errors,
+            "messages": self.messages
+        ]
+    }
 }
