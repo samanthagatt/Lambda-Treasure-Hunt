@@ -19,28 +19,120 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         setUpCurrentRoom()
         NotificationCenter.default.addObserver(self, selector: #selector(setUpCurrentRoom), name: UserDefaults.didChangeNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateText(_:)), name: .userUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateText(_:)), name: .adventureUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .userUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .adventureUpdate, object: nil)
     }
     
     
-    @objc func updateText(_ notification: Notification) {
-        
+    @objc func updateViews(_ notification: Notification) {
+        DispatchQueue.main.async {
+            guard let dict = notification.userInfo else {
+                return }
+            
+            if let gold = dict["gold"] {
+                self.goldLabel.text = "\(gold)"
+            }
+            if let strength = dict["strength"] {
+                self.strengthLabel.text = "\(strength)"
+            }
+            if let cooldown = dict["cooldown"] {
+                self.cooldownLabel.text = "\(cooldown)"
+            }
+            if let encumbrance = dict["encumbrance"] {
+                self.encumbranceLabel.text = "\(encumbrance)"
+            }
+            if let speed = dict["speed"] {
+                self.speedLabel.text = "\(speed)"
+            }
+            if let inventory = dict["inventory"] as? [Any] {
+                var text = ""
+                for item in inventory {
+                    text += "\(item), "
+                }
+                if text.count > 1 {
+                    text.removeLast()
+                    text.removeLast()
+                }
+                self.inventoryLabel.text = text
+            }
+
+            if let roomID = dict["roomID"] {
+                self.roomIDTitleLabel.text = "Room \(roomID) - "
+                if let title = dict["title"] {
+                    self.roomIDTitleLabel.text! += "\(title)"
+                }
+            } else if let title = dict["title"] {
+                self.roomIDTitleLabel.text = "\(title)"
+            }
+            if let roomDescription = dict["roomDescription"] {
+                self.roomDescriptionLabel.text = "\(roomDescription)"
+            }
+            if let items = dict["items"] as? [Any] {
+                var text = ""
+                for item in items {
+                    text += "\(item), "
+                }
+                if text.count > 1 {
+                    text.removeLast()
+                    text.removeLast()
+                }
+                self.itemsLabel.text = text
+            }
+            if let errors = dict["errors"] as? [Any] {
+                var text = ""
+                for error in errors {
+                    text += "\(error), "
+                }
+                if text.count > 1 {
+                    text.removeLast()
+                    text.removeLast()
+                }
+                self.errorLabel.text = text
+            }
+            if let messages = dict["messages"] as? [Any], messages.count > 0 {
+                var text = ""
+                for message in messages {
+                    text += "\(message) "
+                }
+                if text.count > 1 {
+                    text.removeLast()
+                    text.removeLast()
+                }
+                self.messagesLabel.text = text
+            }
+        }
     }
     
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var sideBarView: UIView!
-    @IBOutlet weak var treasureButton: UIButton!
-    @IBOutlet weak var destinationTextField: UITextField!
-    @IBOutlet var travelButton: UIButton!
+
+    @IBOutlet weak var goldLabel: UILabel!
+    @IBOutlet weak var cooldownLabel: UILabel!
+    @IBOutlet weak var encumbranceLabel: UILabel!
+    @IBOutlet weak var strengthLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var inventoryLabel: UILabel!
+
+    @IBOutlet weak var roomIDTitleLabel: UILabel!
+    @IBOutlet weak var roomDescriptionLabel: UILabel!
+    @IBOutlet weak var itemsLabel: UILabel!
+    @IBOutlet weak var messagesLabel: UILabel!
+    @IBOutlet weak var errorLabel: UILabel!
+    
+    @IBOutlet weak var northButton: UIButton!
+    @IBOutlet weak var eastButton: UIButton!
+    @IBOutlet weak var southButton: UIButton!
+    @IBOutlet weak var westButton: UIButton!
+    
+    @IBOutlet weak var treasureHuntingButton: UIButton!
     
     var currentRoomView: UIView!
-    var roomSize = 60
+    var roomSize = 40
     var squareSize: Int {
         return roomSize * 3 / 4
     }
-    var corridorSize = 6
+    var corridorSize = 4
     var cornerRadius: Int {
         return squareSize / 10 + 2
     }
@@ -48,23 +140,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     
     @IBAction func toggleCollectTreasure(_ sender: Any) {
-        TreasureMapHelper.shared.getRandomTreasure() { (_, _) in }
-    }
-    
-    @IBAction func travel(_ sender: Any) {
-        guard let destString = destinationTextField.text,
-            let dest = Int(destString) else {
-            return
+        if TreasureMapHelper.toggleTreasureHunting() {
+            treasureHuntingButton.setTitle("Stop treasure hunting", for: .normal)
+        } else {
+            treasureHuntingButton.setTitle("Go treasure hunting", for: .normal)
         }
-        let path = TreasureMapHelper.getPath(to: dest)
-        TreasureMapHelper.travelTo(path: path)
-        travelButton.isEnabled = false
     }
     
     @objc func setUpCurrentRoom() {
         DispatchQueue.main.async {
             self.currentRoomView?.removeFromSuperview()
-            let map = TreasureMapHelper.shared.getMap()
+            let map = TreasureMapHelper.getMap()
             let currentRoom = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
             let coordsString = map[String(currentRoom)]?["coordinates"] as? String ?? "0,0"
             let subStringArray = coordsString.split(separator: ",")
@@ -82,7 +168,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setUpMap() -> (Int, Int) {
-        let map = TreasureMapHelper.shared.getMap()
+        let map = TreasureMapHelper.getMap()
         for (_, valueDict) in map {
             let coordsString = valueDict["coordinates"] as? String ?? "0,0"
             let subStringArray = coordsString.split(separator: ",")

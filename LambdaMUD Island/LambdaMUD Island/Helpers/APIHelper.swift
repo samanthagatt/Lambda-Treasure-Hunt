@@ -30,7 +30,7 @@ class APIHelper {
     // MARK: - Network requestss
     
     /// Attempts to travel in a specified direction
-    func travel(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
+    func fly(_ dir: String, nextRoomID: Int? = nil, completion: @escaping (_ error: Error?, _ status: AdventureStatus?) -> Void) {
         
         // MARK: URL request set up
         let url = APIHelper.baseURL.appendingPathComponent("fly/")
@@ -110,7 +110,7 @@ class APIHelper {
             // MARK: Data decoding
             do {
                 let userStatus = try JSONDecoder().decode(UserStatus.self, from: data)
-                NotificationCenter.default.post(name: .userUpdate, object: userStatus.asDictionary())
+                NotificationCenter.default.post(name: .userUpdate, object: nil, userInfo: userStatus.asDictionary())
                 completion(nil, userStatus)
                 return
             } catch {
