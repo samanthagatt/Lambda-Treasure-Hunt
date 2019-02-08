@@ -8,17 +8,28 @@
 
 import UIKit
 
+// MARK: - Notification names
+extension Notification.Name {
+    static let userUpdate = Notification.Name("statusUpdate")
+    static let adventureUpdate = Notification.Name("adventureUpdate")
+}
+
+// MARK: - ViewController
 class ViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpButtons()
+        updateButtons()
+        
         scrollView.backgroundColor = .white
         let (width, height) = setUpMap()
         scrollView.contentSize = CGSize(width: width + 20, height: height + 20)
         view.addSubview(scrollView)
+        
         setUpCurrentRoom()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(setUpCurrentRoom), name: UserDefaults.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .userUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateViews(_:)), name: .adventureUpdate, object: nil)
@@ -53,6 +64,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var goHuntingButton: UIButton!
     @IBOutlet weak var travelToButton: UIButton!
     
+    var buttons: [UIButton] {
+        return [takeButton, dropButton, sellButton, goToShopButton, goHuntingButton, travelToButton]
+    }
+    var dirButtons: [UIButton] {
+        return [northButton, southButton, eastButton, westButton]
+    }
+    
     var currentRoomView: UIView!
     var roomSize = 40
     var squareSize: Int {
@@ -67,11 +85,21 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     
     func setUpButtons() {
-        let buttons = [takeButton, dropButton, sellButton, goToShopButton, goHuntingButton, travelToButton]
         for button in buttons {
-            button?.layer.borderColor = UIColor.black.cgColor
-            button?.layer.borderWidth = 3
-            button?.layer.cornerRadius = 4
+            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderWidth = 3
+            button.layer.cornerRadius = 4
+            button.setTitleColor(.darkGray, for: .disabled)
+        }
+    }
+    
+    func setButtonBorderColor() {
+        for button in buttons {
+            if button.isEnabled {
+                button.layer.borderColor = UIColor.black.cgColor
+            } else {
+                button.layer.borderColor = UIColor.darkGray.cgColor
+            }
         }
     }
     
@@ -147,7 +175,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 }
                 if text.count > 1 {
                     text.removeLast()
-                    text.removeLast()
                 }
                 self.messagesLabel.text = text
             }
@@ -157,15 +184,35 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func toggleCollectTreasure(_ sender: Any) {
         if TreasureMapHelper.toggleTreasureHunting() {
-            goHuntingButton.setTitle("Stop hunting", for: .normal)
+            goHuntingButton.setTitle(" Stop hunting ", for: .normal)
+            for button in buttons {
+                if button != goHuntingButton {
+                    button.isEnabled = false
+                    button.layer.borderColor = UIColor.darkGray.cgColor
+                }
+            }
+            for button in dirButtons {
+                button.isEnabled = false
+            }
         } else {
-            goHuntingButton.setTitle("Go hunting", for: .normal)
+            goHuntingButton.setTitle(" Go hunting ", for: .normal)
+            updateButtons()
         }
     }
     
     @IBAction func goToShop(_ sender: Any) {
+        for button in buttons {
+            if button != goToShopButton {
+                button.isEnabled = false
+            }
+        }
         let path = TreasureMapHelper.getPath(to: 1)
-        TreasureMapHelper.travelTo(path: path)
+        TreasureMapHelper.travelTo(path: path) { status in
+            guard let status = status else { self.updateButtons(); return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + status.cooldown) {
+                self.updateButtons()
+            }
+        }
     }
     
     @IBAction func travelToRoom(_ sender: Any) {
@@ -184,7 +231,76 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func manuallyTravel(_ sender: UIButton) {
+        for button in dirButtons {
+            button.isEnabled = false
+            button.layer.borderColor = UIColor.darkGray.cgColor
+        }
+        let dir: String
+        switch sender {
+        case northButton:
+            dir = "n"
+        case eastButton:
+            dir = "e"
+        case westButton:
+            dir = "w"
+        case southButton:
+            dir = "s"
+        default:
+            dir = ""
+        }
+        let currentExits = TreasureMapHelper.getMap()[String(UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey))]?["exits"] as? [String: Int]
+        let destID = currentExits?[dir]
+        if let destID = destID {
+            let path = TreasureMapHelper.getPath(to: destID)
+            TreasureMapHelper.travelTo(path: path) { (status) in
+                guard let status = status else { return }
+                if status.items.count > 0 {
+                    self.takeButton.isEnabled = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + status.cooldown) {
+                    self.updateButtons()
+                }
+            }
+        }
+    }
     
+    
+    func updateButtons() {
+        DispatchQueue.main.async {
+            let currentRoomID = UserDefaults.standard.integer(forKey: TreasureMapHelper.currentRoomIDKey)
+            let roomExits = TreasureMapHelper.getMap()[String(currentRoomID)]?["exits"] as? [String: Int]
+            if roomExits?.keys.contains("n") ?? false {
+                self.northButton.isEnabled = true
+            } else {
+                self.northButton.isEnabled = false
+            }
+            if roomExits?.keys.contains("e") ?? false {
+                self.eastButton.isEnabled = true
+            } else {
+                self.eastButton.isEnabled = false
+            }
+            if roomExits?.keys.contains("w") ?? false {
+                self.westButton.isEnabled = true
+            } else {
+                self.westButton.isEnabled = false
+            }
+            if roomExits?.keys.contains("s") ?? false {
+                self.southButton.isEnabled = true
+            } else {
+                self.southButton.isEnabled = false
+            }
+            if currentRoomID == 1 {
+                self.goToShopButton.isEnabled = false
+                self.sellButton.isEnabled = true
+            } else {
+                self.goToShopButton.isEnabled = true
+                self.sellButton.isEnabled = false
+            }
+            self.travelToButton.isEnabled = true
+            self.setButtonBorderColor()
+        }
+    }
     
     @objc func setUpCurrentRoom() {
         DispatchQueue.main.async {

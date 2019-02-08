@@ -8,14 +8,6 @@
 
 import Foundation
 
-// MARK: - Notification names
-extension Notification.Name {
-    static let userUpdate = Notification.Name("statusUpdate")
-    static let adventureUpdate = Notification.Name("adventureUpdate")
-}
-
-
-// MARK: - API helper class
 class APIHelper {
     
     // MARK: - Properties

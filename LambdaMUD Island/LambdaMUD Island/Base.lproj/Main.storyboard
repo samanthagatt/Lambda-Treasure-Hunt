@@ -22,33 +22,33 @@
                                 <rect key="frame" x="0.0" y="884" width="1366" height="120"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="ps7-gw-TSe">
-                                        <rect key="frame" x="40" y="43.5" width="771" height="33"/>
+                                        <rect key="frame" x="40" y="43.5" width="921" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AmJ-de-4zv">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="33"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Take">
+                                                <state key="normal" title=" Take ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJC-Fl-fJ5">
-                                                <rect key="frame" x="101" y="0.0" width="51" height="33"/>
+                                                <rect key="frame" x="126" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Drop">
+                                                <state key="normal" title=" Drop ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFc-Cs-Bp0">
-                                                <rect key="frame" x="202" y="0.0" width="51" height="33"/>
+                                                <rect key="frame" x="252" y="0.0" width="76" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Sell">
+                                                <state key="normal" title=" Sell ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCC-6F-Lmo">
-                                                <rect key="frame" x="303" y="0.0" width="127" height="33"/>
+                                                <rect key="frame" x="378" y="0.0" width="152" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Go to shop">
+                                                <state key="normal" title=" Go to shop ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -56,9 +56,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5j-uT-mdJ">
-                                                <rect key="frame" x="480" y="0.0" width="127" height="33"/>
+                                                <rect key="frame" x="580" y="0.0" width="152" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Go hunting">
+                                                <state key="normal" title=" Go hunting ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -66,9 +66,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hi7-My-88s">
-                                                <rect key="frame" x="657" y="0.0" width="114" height="33"/>
+                                                <rect key="frame" x="782" y="0.0" width="139" height="33"/>
                                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="21"/>
-                                                <state key="normal" title="Travel to">
+                                                <state key="normal" title=" Travel to ">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -255,6 +255,9 @@
                                                         </constraints>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="north"/>
+                                                        <connections>
+                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k9B-2f-kgn"/>
+                                                        </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="D5U-Ro-mJO">
                                                         <rect key="frame" x="60" y="59" width="200" height="40"/>
@@ -267,6 +270,9 @@
                                                                 </constraints>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="west"/>
+                                                                <connections>
+                                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dpG-wv-ovq"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igd-tK-CRK" userLabel="eastButton">
                                                                 <rect key="frame" x="160" y="0.0" width="40" height="40"/>
@@ -276,6 +282,9 @@
                                                                 </constraints>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="east"/>
+                                                                <connections>
+                                                                    <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j5C-OD-lw7"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -290,6 +299,9 @@
                                                         </constraints>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="south"/>
+                                                        <connections>
+                                                            <action selector="manuallyTravel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JrB-Ia-pdU"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
