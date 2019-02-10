@@ -140,6 +140,7 @@ class APIHelper {
         // MARK: Body json encoding
         do {
             let bodyData = try JSONEncoder().encode(bodyDict)
+            print(String(data: bodyData, encoding: .utf8) ?? "noData")
             request.httpBody = bodyData
         } catch {
             NSLog("Error encoding body data: \(error)")

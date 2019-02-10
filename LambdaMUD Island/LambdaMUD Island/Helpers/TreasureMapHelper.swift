@@ -149,7 +149,13 @@ class TreasureMapHelper {
                     let timePassed = 0 - start.timeIntervalSinceNow
                     let waitTime = status.cooldown > timePassed ? status.cooldown - timePassed : 0.0
                     DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
-                        self.sell(count: count - 1, completion: completion)
+                        
+                        APIHelper.shared.getStatus() { (error, userStatus) in
+                            guard let userStatus = userStatus else { return }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + userStatus.cooldown) {
+                                 self.sell(count: count - 1, completion: completion)
+                            }
+                        }
                     }
                 }
             } else {
@@ -197,28 +203,12 @@ class TreasureMapHelper {
             if path.count > 0 {
                 var p = path
                 
-                var minElev = Int.max
-                
                 let dashDir = path[0].dir
                 var dashRooms: [Int] = []
-                // want to dash or walk (not fly)
-                var hasCaves = false
-                // don't want to dash, want to fly unless encumbered
-                var isUpHill = false
                 
                 for room in path {
-                    let roomDict = TreasureMapHelper.getMap()[String(room.room)]
                     if room.dir == dashDir && !isEncumbered {
-                        if roomDict?["terrain"] as? String == "CAVE" {
-                            hasCaves = true
-                        }
-                        if dashRooms.count > 0 {
-                            if roomDict?["elevation"] as? Int ?? 1 > minElev {
-                                isUpHill = true
-                            }
-                        }
                         dashRooms.append(room.room)
-                        minElev = roomDict?["elevation"] as? Int ?? Int.max
                     } else if isEncumbered && dashRooms.count == 0 {
                         dashRooms.append(room.room)
                         break
@@ -276,7 +266,7 @@ class TreasureMapHelper {
                     APIHelper.shared.walk(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
                 } else {
                     // always dash if more than one (unless encumbered - above, or isUpHill)
-                    if dashRooms.count > 1 && !isUpHill {
+                    if dashRooms.count > 1 {
                         let numRooms = dashRooms.count
                         // could use reduce if I took a little while longer
                         var nextRoomIDs: String = ""
@@ -286,11 +276,8 @@ class TreasureMapHelper {
                         nextRoomIDs.removeLast()
                         APIHelper.shared.dash(dashDir, numRooms: numRooms, nextRoomIDs: nextRoomIDs, completion: internalCompletion)
                     // if there's only one but there isn't caves we want to fly (don't care if it's uphill or downhill)
-                    } else if !hasCaves {
-                        APIHelper.shared.fly(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
-                    // we're in a cave so walk
                     } else {
-                        APIHelper.shared.walk(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
+                        APIHelper.shared.fly(nextMoves[0].dir, nextRoomID: nextMoves[0].room, completion: internalCompletion)
                     }
                 }
             } else {
